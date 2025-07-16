@@ -1,0 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.login-link{
+    cursor: pointer;
+    color: #1976d2;
+    text-decoration: underline;
+}
