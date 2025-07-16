@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-labelledby="blackTitle blackDesc">
+  <title id="blackTitle">Zelloa Logo – Black Metallic</title>
+  <desc id="blackDesc">Thick Z with black‑metallic gradient</desc>
+
+  <defs>
+    <!-- Black‑metallic gradient -->
+    <linearGradient id="blackMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#333333"/>
+      <stop offset="50%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <!-- Subtle drop shadow to lift from dark bg -->
+    <filter id="shadowBlack" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(255,255,255,0.1)"/>
+    </filter>
+  </defs>
+
+  <!-- Thick, modern Z shape -->
+  <path d="
+    M30,20 
+    L170,20 
+    L70,100 
+    L170,180 
+    L30,180 
+    L130,100 
+    Z
+  "
+  fill="url(#blackMetal)"
+  filter="url(#shadowBlack)"/>
+</svg>

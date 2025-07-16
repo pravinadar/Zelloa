@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-labelledby="whiteTitle whiteDesc">
+  <title id="whiteTitle">Zelloa Logo – White Metallic</title>
+  <desc id="whiteDesc">Thick Z with white‑metallic gradient</desc>
+
+  <defs>
+    <!-- White‑metallic gradient -->
+    <linearGradient id="whiteMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#dddddd"/>
+      <stop offset="100%" stop-color="#eeeeee"/>
+    </linearGradient>
+    <!-- Soft drop shadow for depth -->
+    <filter id="shadowWhite" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+
+  <!-- Thick, modern Z shape -->
+  <path d="
+    M30,20 
+    L170,20 
+    L70,100 
+    L170,180 
+    L30,180 
+    L130,100 
+    Z
+  "
+  fill="url(#whiteMetal)"
+  filter="url(#shadowWhite)"/>
+</svg>

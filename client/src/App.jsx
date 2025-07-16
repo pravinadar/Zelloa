@@ -1,13 +1,17 @@
-import './App.css'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Header from './components/common/Header'
+import Home from './pages/protected/Home'
+import ErrorPage from './pages/ErrorPage'
 
 function App() {
 
   return (
     <>
+    <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<h1>Hello World</h1>} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </>
