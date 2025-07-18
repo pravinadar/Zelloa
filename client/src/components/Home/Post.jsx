@@ -10,9 +10,8 @@ const Post = () => {
                 flexDirection={"row"}
                 justifyContent={"space-between"}
                 borderBottom={"3px solid gray"}
-                width={"70%"}
+                width={"100%"}
                 p={2}
-                mx={"auto"}
                 sx={{
                     ":hover": {
                         cursor: "pointer",

@@ -9,7 +9,7 @@ const ProfileLayout = () => {
                 gap={2}
                 m={2}
                 p={2}
-                width={"90%"}
+                width={"100%"}
                 maxWidth={"800px"}
                 mx={"auto"}
             >
@@ -87,7 +87,9 @@ const ProfileLayout = () => {
 
                     </Typography>
 
-                    <img src="/logo-lightmode2.svg" alt="logo" width={40} />
+                    <Link to={"/"} >
+                        <img src="/logo-lightmode2.svg" alt="logo" width={40} />
+                    </Link>
 
                 </Stack>
 
@@ -97,7 +99,7 @@ const ProfileLayout = () => {
                 size="large"
                 sx={{
                     color: "black",
-                    width: "90%",
+                    width: "100%",
                     maxWidth: "800px",
                     mx: "auto",
                     textAlign: "center",
@@ -125,13 +127,13 @@ const ProfileLayout = () => {
                 maxWidth={"800px"}
             >
 
-                <Link to={'/profile/zips/1'}>  {/* to be edited */ }
+                <Link to={'/profile/zips/1'} className="link">  {/* to be edited */}
                     Zips
                 </Link>
-                <Link to={'/profile/replies/1'}>
+                <Link to={'/profile/replies/1'} className="link">
                     Replies
                 </Link>
-                <Link to={'/profile/rezips/1'}>
+                <Link to={'/profile/rezips/1'} className="link">
                     Rezips
                 </Link>
 

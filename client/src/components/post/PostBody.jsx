@@ -1,5 +1,4 @@
 import { Stack, Typography } from '@mui/material'
-import React from 'react'
 import { FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa'
 import { IoSend } from 'react-icons/io5'
 
