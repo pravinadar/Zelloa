@@ -29,7 +29,7 @@ const ProfileBar = () => {
                             variant="h6"
                             fontWeight={"bold"}
                             fontSize={"1.1rem"}
-                            lineHeight={1.2}
+                            lineHeight={1}
                         >
                             User Name Here
                         </Typography>
@@ -38,7 +38,7 @@ const ProfileBar = () => {
                             variant="caption" 
                             color={"gray"}
                             fontSize={"0.9rem"}
-                            lineHeight={1.1}
+                            lineHeight={1.3}
                         >
                             @userid_here
                         </Typography>
@@ -47,7 +47,8 @@ const ProfileBar = () => {
                             variant="caption" 
                             color={"gray"}
                             fontSize={"0.85rem"}
-                            lineHeight={1.1}
+                            fontWeight={"bold"}
+                            lineHeight={1}
                         >
                             followers here
                         </Typography>
@@ -58,7 +59,7 @@ const ProfileBar = () => {
                     size="medium"
                     sx={{
                         border: "1px solid gray",
-                        borderRadius: "20px",
+                        borderRadius: "10px",
                         color: "black",
                         px: 2,
                         py: 1,

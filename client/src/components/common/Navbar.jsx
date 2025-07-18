@@ -32,7 +32,14 @@ const Navbar = () => {
 
                 <FaEdit size={32} />
                 <FaHeart size={32} />
-                <RxAvatar size={32} />
+
+                <Link to={"/profile/zips/1"} className="link">
+                <RxAvatar
+                    size={32}
+                    color={"black"}
+                />
+                </Link>
+                
             </Stack>
         </>
     )

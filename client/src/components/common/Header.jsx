@@ -18,7 +18,7 @@ const Header = () => {
         py={1}
       >
 
-        <img src="/logo-lightmode.svg" alt="logo" width={60} height={48} />
+        <img src="/logo-lightmode2.svg" alt="logo" width={60} height={48} />
 
         <Stack
           justifyContent={'center'}
