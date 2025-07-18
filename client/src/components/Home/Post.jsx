@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material'
 import { MdOutlineMoreHoriz } from "react-icons/md";
-import PostHeader from '../post/PostHeader';
-import PostBody from '../post/PostBody';
+import PostHeader from './post/PostHeader';
+import PostBody from './post/PostBody';
 
 const Post = () => {
     return (

@@ -1,6 +1,10 @@
 import { Stack, TextField, Typography, Button } from '@mui/material'
+import { useState } from 'react'
 
 const Register = () => {
+
+  const [login, setLogin] = useState(false)
+
   return (
     <>
       <Stack

@@ -8,6 +8,7 @@ import ProfileLayout from './pages/protected/profile/ProfileLayout'
 import Zips from './pages/protected/profile/Zips'
 import Replies from './pages/protected/profile/Replies'
 import Repost from './pages/protected/profile/Rezips'
+import SinglePost from './pages/protected/SinglePost'
 
 function App() {
 
@@ -19,11 +20,14 @@ function App() {
             <Route path="/" element={<ProtectedLayout />} >
               <Route path='' element={<Home />} />
               <Route path='search' element={<Search />} />
+              <Route path='post/:id' element={<SinglePost />} />
+
               <Route path='profile' element={<ProfileLayout />}>
                 <Route path='zips/:id' element={<Zips />} />
                 <Route path='replies/:id' element={<Replies />} />
                 <Route path='rezips/:id' element={<Repost />} />
               </Route>
+
             </Route>
           </Routes>
         </BrowserRouter>

@@ -9,7 +9,7 @@ const ProfileLayout = () => {
                 gap={2}
                 m={2}
                 p={2}
-                width={"100%"}
+                width={"90%"}
                 maxWidth={"800px"}
                 mx={"auto"}
             >
@@ -99,7 +99,7 @@ const ProfileLayout = () => {
                 size="large"
                 sx={{
                     color: "black",
-                    width: "100%",
+                    width: "90%",
                     maxWidth: "800px",
                     mx: "auto",
                     textAlign: "center",
