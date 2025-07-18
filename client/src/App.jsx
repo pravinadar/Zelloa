@@ -3,6 +3,11 @@ import { Box } from '@mui/material'
 
 import Home from './pages/protected/Home'
 import ProtectedLayout from './pages/protected/ProtectedLayout'
+import Search from './pages/protected/Search'
+import ProfileLayout from './pages/protected/profile/ProfileLayout'
+import Zips from './pages/protected/profile/Zips'
+import Replies from './pages/protected/profile/Replies'
+import Repost from './pages/protected/profile/Repost'
 
 function App() {
 
@@ -13,7 +18,12 @@ function App() {
           <Routes>
             <Route path="/" element={<ProtectedLayout />} >
               <Route path='' element={<Home />} />
-              <Route path='post/:id' element={<p>Dynamic Post Content</p>} />
+              <Route path='search' element={<Search />} />
+              <Route path='profile' element={<ProfileLayout />}>
+                <Route path='zips/:id' element={<Zips />} />
+                <Route path='replies/:id' element={<Replies />} />
+                <Route path='repost/:id' element={<Repost />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>
