@@ -1,9 +1,38 @@
-import { Stack, TextField, Typography, Button } from '@mui/material'
+import { Stack, TextField, Typography, Button, useMediaQuery } from '@mui/material'
 import { useState } from 'react'
 
 const Register = () => {
 
+  const _700 = useMediaQuery('(max-width:700px)')
+
   const [login, setLogin] = useState(false)
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const toggleLogin = () => {
+    setLogin(!login)
+  }
+
+  const handleLogin=()=>{
+
+    const data ={
+      email:email,
+      password:password
+    }
+    console.log("handleLogin called with", data)
+    // testing
+  }
+
+  const handleRegister=()=>{
+    const data ={
+      username:username,
+      email:email,
+      password:password
+    }
+    console.log("handleRegister called with", data)
+    // testing
+  }
 
   return (
     <>
@@ -32,47 +61,61 @@ const Register = () => {
             fontWeight={"bold"}
             alignSelf={"center"}
           >
-            Register
+            {login ? "Login" : "Register"}
 
           </Typography>
 
-          <TextField
-            label="Username"
-            variant="outlined"
-            placeholder='Enter your username'
-          />
+          {login ? null :
+
+            <TextField
+              label="Username"
+              variant="outlined"
+              placeholder='Enter your username'
+              onChange={(e) => (setUsername(e.target.value))}
+            />
+
+          }
           <TextField
             label="Email"
             variant="outlined"
             placeholder='Enter your Email'
+            onChange={(e) => (setEmail(e.target.value))}
           />
           <TextField
             label="Password"
             variant="outlined"
             placeholder='Enter your Password'
+            type='password'
+            onChange={(e) => (setPassword(e.target.value))}
           />
 
           <Button
-          size="large"
-          sx={{
-            width: "100%",
-            height:52,
-            bgcolor: "black",
-            color: "white",
-            fontSize: "1rem",
-            ":hover":{
-              bgcolor: "gray"
-            }
-          }}>
-            Register
+            size="large"
+            sx={{
+              width: "100%",
+              height: 52,
+              bgcolor: "black",
+              color: "white",
+              fontSize: "1rem",
+              ":hover": {
+                bgcolor: "gray"
+              }
+            }}
+            onClick={login ? handleLogin : handleRegister}>
+            {login ? "Login" : "Register"}
           </Button>
 
           <Typography
-          variant="subtitle2"
-          fontSize={"1.3rem"}
-          alignSelf={"center"}
+            variant="subtitle2"
+            fontSize={"1.3rem"}
+            alignSelf={"center"}
           >
-            Already have an account? <span className='login-link'>Login</span>
+
+            {login ? "Don't have an account? " : "Already have an account? "}
+            <span className='login-link' onClick={toggleLogin}>
+              {login ? "Register" : "Login"}
+            </span>
+
           </Typography>
 
         </Stack>

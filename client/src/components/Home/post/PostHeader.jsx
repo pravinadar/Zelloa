@@ -1,12 +1,14 @@
 import { Avatar, AvatarGroup, Badge, Stack, Stepper } from '@mui/material'
 
-const PostHeader = () => {
+const PostHeader = ({ isMobile }) => {
     return (
         <>
             <Stack
                 flexDirection={"column"}
                 alignItems={"center"}
                 justifyContent={"space-between"}
+                width={{ xs: "50px", sm: "60px" }}
+                minWidth={{ xs: "50px", sm: "60px" }}
             >
 
                 <Badge
@@ -17,27 +19,33 @@ const PostHeader = () => {
                     }}
                     badgeContent={
                         <Avatar alt="+" src="" sx={{
-                            width: 20,
-                            height: 20,
+                            width: isMobile ? 16 : 20,
+                            height: isMobile ? 16 : 20,
                             bgcolor: "green",
                             position: "relative",
-                            right: 4,
-                            bottom: 4,
+                            right: isMobile ? 2 : 4,
+                            bottom: isMobile ? 2 : 4,
+                            fontSize: isMobile ? "0.6rem" : "0.8rem"
                         }}
                         >
                             {" "}+{" "}
                         </Avatar>
                     }
                 >
-
-                    <Avatar alt="User" src="" sx={{ width: 40, height: 40 }} />
-
+                    <Avatar 
+                        alt="User" 
+                        src="" 
+                        sx={{ 
+                            width: isMobile ? 32 : 40, 
+                            height: isMobile ? 32 : 40 
+                        }} 
+                    />
                 </Badge>
 
                 <Stack
                     flexDirection={"column"}
                     alignItems={"center"}
-                    gap={2}
+                    gap={isMobile ? 1 : 2}
                     height={"100%"}
                 >
                     <Stepper
@@ -53,15 +61,13 @@ const PostHeader = () => {
 
                     <AvatarGroup total={3} sx={{
                         '& .MuiAvatar-root': {
-                            width: 24,
-                            height: 24,
-                            fontSize: 12,
+                            width: isMobile ? 20 : 24,
+                            height: isMobile ? 20 : 24,
+                            fontSize: isMobile ? 10 : 12,
                         }
                     }}>
                         <Avatar alt="User1" src="" />
                     </AvatarGroup>
-
-
                 </Stack>
 
             </Stack>

@@ -1,48 +1,50 @@
-import { Stack, Typography } from '@mui/material'
+import { Stack, Typography, useMediaQuery } from '@mui/material'
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import PostHeader from './post/PostHeader';
 import PostBody from './post/PostBody';
 
 const Post = () => {
+    const isMobile = useMediaQuery('(max-width:700px)')
+    
     return (
         <>
             <Stack
                 flexDirection={"row"}
                 justifyContent={"space-between"}
                 borderBottom={"3px solid gray"}
-                width={"100%"}
-                p={2}
+                p={{ xs: 1, sm: 2 }}
                 sx={{
                     ":hover": {
                         cursor: "pointer",
-                        boxShadow: "10px 10px 10px gray",
+                        boxShadow: { xs: "5px 5px 5px gray", sm: "10px 10px 10px gray" },
                     },
                     transition: "all 0.3s ease"
                 }}>
 
-                <Stack flexDirection={"row"} gap={2}>
-                    <PostHeader />
-                    <PostBody />
+                <Stack 
+                    flexDirection={"row"} 
+                    gap={{ xs: 1, sm: 2 }}
+                    width="100%"
+                >
+                    <PostHeader isMobile={isMobile} />
+                    <PostBody isMobile={isMobile} />
                 </Stack>
 
                 <Stack
                     flexDirection={"row"}
-                    justifyContent={"center"}
                     gap={1}
-                    fontSize={"1rem"}>
-
+                    minWidth={{ xs: "120px", sm: "140px" }}
+                >
                     <Typography
                         variant="caption"
                         color={"gray"}
-                        fontSize={"1rem"}
-                        position={"relative"}
-                        top={2}
+                        fontSize={{ xs: "0.8rem", sm: "1rem" }}
+                        textAlign="center"
                     >
-                        time here
+                        {isMobile ? "2h" : "2 hours ago"}
                     </Typography>
 
-                    <MdOutlineMoreHoriz size={28} />
-
+                    <MdOutlineMoreHoriz size={isMobile ? 20 : 28} />
                 </Stack>
             </Stack>
         </>

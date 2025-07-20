@@ -9,6 +9,7 @@ import Zips from './pages/protected/profile/Zips'
 import Replies from './pages/protected/profile/Replies'
 import Repost from './pages/protected/profile/Rezips'
 import SinglePost from './pages/protected/SinglePost'
+import Register from './pages/Register'
 
 function App() {
 
@@ -17,6 +18,9 @@ function App() {
       <Box minHeight={'100vh'}>
         <BrowserRouter>
           <Routes>
+
+            <Route path="/register" element={<Register />} />
+
             <Route path="/" element={<ProtectedLayout />} >
               <Route path='' element={<Home />} />
               <Route path='search' element={<Search />} />

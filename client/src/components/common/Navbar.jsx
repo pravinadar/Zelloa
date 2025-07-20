@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material"
 import { IoHomeSharp } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
@@ -15,6 +15,10 @@ const Navbar = () => {
                 alignItems={'center'}
                 maxWidth={'100%'}
             >
+                <FaArrowLeft
+                    size={32}
+                    color={"black"}
+                />
 
                 <Link to={"/"} className="link">
                     <IoHomeSharp
