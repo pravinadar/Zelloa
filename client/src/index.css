@@ -8,3 +8,23 @@
     color: #1976d2;
     text-decoration: underline;
 }
+
+.text1{
+    border:none;
+    outline:none;
+    padding: 5px 10px;
+    position: relative;
+    left:-10px;
+    color: gray;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+#url-img {
+    margin: 0 0 10px;
+    width: 150px;
+}

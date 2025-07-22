@@ -10,6 +10,7 @@ import Replies from './pages/protected/profile/Replies'
 import Repost from './pages/protected/profile/Rezips'
 import SinglePost from './pages/protected/SinglePost'
 import Register from './pages/Register'
+import ErrorPage from './pages/ErrorPage'
 
 function App() {
 
@@ -33,6 +34,8 @@ function App() {
               </Route>
 
             </Route>
+
+            <Route path='*' element={<ErrorPage />} />
           </Routes>
         </BrowserRouter>
       </Box>

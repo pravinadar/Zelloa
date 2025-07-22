@@ -5,7 +5,7 @@ const ErrorPage = () => {
     const navigate = useNavigate()
 
     const handleGoHome = () => {
-        navigate('/')
+        navigate(-1) // Navigate back to the previous page
     }
 
     return (
