@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import Header from "../../components/common/Header"
 import AddPost from "../../components/models/AddPost"
 import EditProfile from "../../components/models/EditProfile"
+import MainMenu from "../../components/menu/MainMenu"
 
 const ProtectedLayout = () => {
   return (
@@ -16,8 +17,14 @@ const ProtectedLayout = () => {
         {/* Protected content goes here */}
         <Header />
         
-        {/* <AddPost/> Testing AddPost component */}
-        {/* <EditProfile/> Testing EditProfile component */}
+        {/* Testing MainMenu component */}
+        <MainMenu/> 
+
+        {/*Testing AddPost component */}
+        <AddPost/> 
+
+        {/*Testing EditProfile component */}
+        <EditProfile/> 
 
         {/* Outlet renders the child routes */}
         <Outlet />
