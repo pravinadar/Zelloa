@@ -16,15 +16,15 @@ const ProtectedLayout = () => {
     >
         {/* Protected content goes here */}
         <Header />
-        
+
         {/* Testing MainMenu component */}
-        <MainMenu/> 
+        {/* <MainMenu/>  */}
 
         {/*Testing AddPost component */}
-        <AddPost/> 
+        {/* <AddPost/>  */}
 
         {/*Testing EditProfile component */}
-        <EditProfile/> 
+        {/* <EditProfile/>  */}
 
         {/* Outlet renders the child routes */}
         <Outlet />

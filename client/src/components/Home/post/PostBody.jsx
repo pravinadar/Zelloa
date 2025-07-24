@@ -27,7 +27,7 @@ const PostBody = ({ isMobile }) => {
                         >
                             Name
                         </Typography>
-                        <Link to={"/post/1"} className="link">
+                        <Link to={"/post/1"} className="caption-link">
                             <Typography
                                 variant="h5"
                                 fontSize={{ xs: "1rem", sm: "1.2rem" }}
