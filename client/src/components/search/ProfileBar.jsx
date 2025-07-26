@@ -1,19 +1,21 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material"
+import { Avatar, Button, Stack, Typography, useMediaQuery } from "@mui/material"
 
 const ProfileBar = () => {
+    const isMobile = useMediaQuery('(max-width:600px)');
+    
     return (
         <>
             <Stack
                 flexDirection={"row"}
                 justifyContent={"space-between"}
                 alignItems={"center"}
-                px={1}
-                py={2}
+                px={isMobile ? 0.75 : 1}
+                py={isMobile ? 1.5 : 2}
                 mx={"auto"}
                 boxShadow={"-1px 3px 10px gray"}
                 width={"90%"}
                 maxWidth={"750px"}
-                borderRadius={"15px"}
+                borderRadius={isMobile ? "10px" : "15px"}
                 sx={{
                     ":hover": {
                         cursor: "pointer",
@@ -22,13 +24,13 @@ const ProfileBar = () => {
                     transition: "all 0.3s ease"
                 }}
             >
-                <Stack flexDirection={"row"} gap={1.5} alignItems={"center"}>
-                    <Avatar src="" alt="" sx={{ width: 50, height: 50 }} />
+                <Stack flexDirection={"row"} gap={isMobile ? 1 : 1.5} alignItems={"center"}>
+                    <Avatar src="" alt="" sx={{ width: isMobile ? 40 : 50, height: isMobile ? 40 : 50 }} />
                     <Stack flexDirection={"column"} gap={0} justifyContent={"center"}>
                         <Typography
                             variant="h6"
                             fontWeight={"bold"}
-                            fontSize={"1.1rem"}
+                            fontSize={isMobile ? "0.95rem" : "1.1rem"}
                             lineHeight={1}
                         >
                             User Name Here
@@ -37,7 +39,7 @@ const ProfileBar = () => {
                         <Typography 
                             variant="caption" 
                             color={"gray"}
-                            fontSize={"0.9rem"}
+                            fontSize={isMobile ? "0.8rem" : "0.9rem"}
                             lineHeight={1.3}
                         >
                             @userid_here
@@ -46,7 +48,7 @@ const ProfileBar = () => {
                         <Typography 
                             variant="caption" 
                             color={"gray"}
-                            fontSize={"0.85rem"}
+                            fontSize={isMobile ? "0.75rem" : "0.85rem"}
                             fontWeight={"bold"}
                             lineHeight={1}
                         >
@@ -56,15 +58,16 @@ const ProfileBar = () => {
                 </Stack>
 
                 <Button 
-                    size="medium"
+                    size={isMobile ? "small" : "medium"}
                     sx={{
                         border: "1px solid gray",
-                        borderRadius: "10px",
+                        borderRadius: isMobile ? "8px" : "10px",
                         color: "black",
-                        px: 2,
-                        py: 1,
-                        height: 36,
-                        minWidth: 80,
+                        px: isMobile ? 1.5 : 2,
+                        py: isMobile ? 0.5 : 1,
+                        height: isMobile ? 30 : 36,
+                        minWidth: isMobile ? 65 : 80,
+                        fontSize: isMobile ? "0.8rem" : "0.875rem",
                         ":hover": {
                             backgroundColor: "lightgray",
                         },

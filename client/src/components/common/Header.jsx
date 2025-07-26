@@ -61,10 +61,7 @@ const Header = () => {
               alignItems={"center"}
               p={1}>
 
-              <Grid
-                item
-                xs={6}
-              >
+              <Grid>
 
                 <img
                   src="/logo-lightmode2.svg"
