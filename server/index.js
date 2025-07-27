@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import connectDB from "./config/db.js";
 
 const app = express();
 
@@ -11,4 +12,5 @@ app.get("/",(req,res)=>{
 
 app.listen(PORT, () => {
     console.log(`Server is live at http://localhost:${PORT}`);
+    connectDB();
 })
