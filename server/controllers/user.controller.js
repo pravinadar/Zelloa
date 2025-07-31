@@ -196,20 +196,20 @@ export const getUserDetails = async (req, res) => {
         .select("-password")
         .populate("followers")
         .populate({
-            path:"zips",
-            populate:[{path:"likes"},{path:"comments"},{path:"admin"}]
+            path: "zips",
+            populate: [{ path: "likes" }, { path: "comments" }, { path: "admin" }]
         })
         .populate({
-            path:"rezips",
-            populate:[{path:"likes"},{path:"comments"},{path:"admin"}]
+            path: "rezips",
+            populate: [{ path: "likes" }, { path: "comments" }, { path: "admin" }]
         })
         .populate({
-            path:"replies",
-            populate:[{path:"admin"}]
+            path: "replies",
+            populate: [{ path: "admin" }]
         })
 
     if (!user) {
-        return res.status(404).json({ 
+        return res.status(404).json({
             message: "User not found"
         });
     }
@@ -228,4 +228,73 @@ export const getUserDetails = async (req, res) => {
             replies: user.replies.length
         }
     });
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+*/
+
+export const followUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({
+                message: "User ID is required"
+            });
+        }
+
+        const userExists = await User.findById(id);
+
+        if (!userExists) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // If already following, unfollow the user
+        if (userExists.followers.includes(req.user.id)) {
+            await User.findByIdAndUpdate(
+                userExists._id,
+                { $pull: { followers: req.user.id } },
+                { new: true }
+            );
+
+            return res.status(200).json({
+                message: `Unfollowed ${userExists.username}`,
+                user: {
+                    id: userExists._id,
+                    username: userExists.username,
+                    email: userExists.email,
+                    followers: userExists.followers.length
+                }
+            });
+        }
+
+        // follow the user
+        await User.findByIdAndUpdate(
+            userExists._id,
+            { $push: { followers: req.user.id } },
+            { new: true }
+        );
+
+        return res.status(200).json({
+            message: `Followed ${userExists.username}`,
+            user: {
+                id: userExists._id,
+                username: userExists.username,
+                email: userExists.email,
+                followers: userExists.followers.length
+            }
+        });
+
+    } catch (error) {
+        console.error('Error in followUser:', error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+
+    }
 }
