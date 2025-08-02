@@ -394,3 +394,69 @@ export const UpdateProfile = async (req, res) => {
         });
     }
 };
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+*/
+
+export const searchUser = async (req, res) => {
+    try {
+        const { query } = req.params;
+
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: "i" } },
+                { email: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                message: "No users found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Users found",
+            users: users.map(user => ({
+                // id: user._id,
+                username: user.username,
+                profilePicture: user.profilePicture
+            }))
+        });
+
+    } catch (error) {
+        console.error('Error in searchUser:', error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });   
+    }
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+*/
+
+export const logoutUser = async (req, res) => {
+    try {
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true
+        });
+    
+        res.status(200).json({
+            message: "User logged out successfully"
+        });
+    } catch (error) {
+        console.error('Error in logoutUser:', error.message);
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+        
+    }
+}
