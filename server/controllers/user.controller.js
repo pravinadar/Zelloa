@@ -460,3 +460,22 @@ export const logoutUser = async (req, res) => {
         
     }
 }
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+*/
+
+export const userInfo = async (req, res) => {
+    try {
+        res.status(200).json({
+            user: req.user
+        })
+    }catch (error) {
+        console.error('Error in userInfo:', error.message);
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
