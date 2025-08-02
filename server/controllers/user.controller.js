@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import formidable from "formidable";
+import cloudinary from "../config/cloudinary.js";
 
 import User from "../models/user.model.js";
 
@@ -135,9 +137,9 @@ export const Login = async (req, res) => {
             });
         }
 
-        console.log("Password from request:", password);
-        console.log("User password from DB:", userExists.password);
-        console.log("User object:", userExists);
+        // console.log("Password from request:", password);
+        // console.log("User password from DB:", userExists.password);
+        // console.log("User object:", userExists);
 
         const accessToken = jwt.sign(
             { id: userExists._id },
@@ -298,3 +300,97 @@ export const followUser = async (req, res) => {
 
     }
 }
+
+
+// Helper: promisify formidable parsing
+const parseForm = (req) => {
+    return new Promise((resolve, reject) => {
+        const form = formidable({});
+        form.parse(req, (err, fields, files) => {
+            if (err) reject(err);
+            else resolve({ fields, files });
+        });
+    });
+};
+
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+*/
+
+export const UpdateProfile = async (req, res) => {
+    try {
+        const userExists = await User.findById(req.user.id);
+        if (!userExists) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Parse incoming form data
+        const { fields, files } = await parseForm(req);
+
+        // Debugging logs
+        // console.log("Fields:", fields);
+        // console.log("File keys:", Object.keys(files));;
+
+        if (fields.bio) {
+            await User.findByIdAndUpdate(
+                req.user.id,
+                { bio: fields.bio },
+                { new: true }
+            );
+        }
+
+        if (!files.profilePicture) {
+            return res.status(400).json({
+                message: "Media file is required"
+            });
+        }
+
+        if (files) {
+            let uploadedImage;
+
+            try {
+                uploadedImage = await cloudinary.v2.uploader.upload(
+                    files.profilePicture?.filepath,
+                    { folder: "Zelloa/ProfilePictures" }
+                );
+            } catch (error) {
+                console.error("Cloudinary Upload Error:", error.message);
+                return res.status(500).json({
+                    message: "Failed to upload image",
+                    error: error.message
+                });
+            }
+
+            // Delete old image from Cloudinary if exists
+            if (userExists.public_id) {
+                await cloudinary.v2.uploader.destroy(userExists.public_id);
+            }
+
+            // console.log(uploadedImage)
+
+            // Update DB with new profile picture URL & public_id
+            await User.findByIdAndUpdate(
+                req.user.id,
+                {
+                    profilePicture: uploadedImage.secure_url,
+                    public_id: uploadedImage.public_id
+                },
+                { new: true }
+            );
+        }
+
+        res.status(200).json({
+            message: "Profile updated successfully",
+            user: await User.findById(req.user.id).select("username bio profilePicture")
+        });
+
+    } catch (error) {
+        console.error("Error Updating Profile:", error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+};
