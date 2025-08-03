@@ -14,6 +14,9 @@ import {
     addPost, 
     allPosts,
     deletePost,
+    likePost,
+    repost,
+    singlePost,
 } from "../controllers/post.controller.js";
 
 import authMiddleware from "../middlewares/auth.middleware.js";
@@ -40,5 +43,8 @@ router.get("/user", authMiddleware, userInfo);
 router.post("/zip/add", authMiddleware, addPost)
 router.get("/zip",authMiddleware,allPosts)
 router.delete("/zip/:id", authMiddleware, deletePost)
+router.put("/zip/like/:id", authMiddleware, likePost)
+router.post("/zip/rezip/:id", authMiddleware, repost)
+router.get("/zip/:id", authMiddleware, singlePost)
 
 export default router;
