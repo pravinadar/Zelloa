@@ -10,6 +10,7 @@ import {
     UpdateProfile, 
     userInfo
 } from "../controllers/user.controller.js";
+
 import { 
     addPost, 
     allPosts,
@@ -18,6 +19,11 @@ import {
     repost,
     singlePost,
 } from "../controllers/post.controller.js";
+
+import { 
+    addComment, 
+    deleteComments
+} from "../controllers/comment.controller.js";
 
 import authMiddleware from "../middlewares/auth.middleware.js";
 
@@ -46,5 +52,9 @@ router.delete("/zip/:id", authMiddleware, deletePost)
 router.put("/zip/like/:id", authMiddleware, likePost)
 router.post("/zip/rezip/:id", authMiddleware, repost)
 router.get("/zip/:id", authMiddleware, singlePost)
+
+// Comment routes
+router.post("/comment/:postId", authMiddleware, addComment)
+router.delete("/comment/:postId/:commentId", authMiddleware, deleteComments)
 
 export default router;
