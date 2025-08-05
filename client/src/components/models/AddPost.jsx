@@ -2,6 +2,8 @@ import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Stack, Typogra
 import { RxCross1 } from "react-icons/rx";
 import { PiImages } from "react-icons/pi";
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openAddPostModal } from "../../redux/serviceSlice";
 
 
 const AddPost = () => {
@@ -13,18 +15,24 @@ const AddPost = () => {
 
   const mediaRef = useRef();
 
-  const handleClose = () => { };
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(openAddPostModal(false));
+  };
+
+  const {AddPostModal} = useSelector(state=>state.service)
 
   const handleMediaRef = () => {
     mediaRef.current.click();
   };
 
-  const handlePost = () => {}
+  const handlePost = () => { }
 
   return (
     <>
       <Dialog
-        open={true}
+        open={AddPostModal}
         onClose={handleClose}
         fullWidth
         fullScreen={_700 ? false : true}
@@ -34,9 +42,18 @@ const AddPost = () => {
           position={"absolute"}
           top={20}
           right={20}
-          onClick={handleClose}
+          sx={{
+            bgcolor: "white",
+            boxShadow: 3,
+            padding: 1,
+            ":hover": { cursor: "pointer", bgcolor: "grey.200" }
+          }}
         >
-          <RxCross1 size={28} className="image-icon" />
+          <RxCross1
+            size={28}
+            className="image-icon"
+            onClick={handleClose} 
+          />
         </Box>
 
         <DialogTitle

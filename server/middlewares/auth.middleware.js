@@ -28,9 +28,9 @@ const authMiddleware = async (req, res, next) => {
 
         const user = await User.findById(decoded.id)
         .populate("followers")
-        // .populate("replies")
-        // .populate("zips")
-        // .populate("rezips");
+        .populate("replies")
+        .populate("zips")
+        .populate("rezips");
 
         if (!user) {
             return res.status(404).json({
