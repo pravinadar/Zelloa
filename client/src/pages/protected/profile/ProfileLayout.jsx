@@ -1,7 +1,15 @@
 import { Avatar, Button, Chip, Stack, Typography } from "@mui/material"
+import { useDispatch } from "react-redux"
 import { Link, Outlet } from "react-router-dom"
+import { openEditProfileModal } from "../../../redux/serviceSlice.js";
 
 const ProfileLayout = () => {
+    const dispatch = useDispatch();
+
+    const handleEditProfile = () => {
+        dispatch(openEditProfileModal(true));
+    }
+
     return (
         <>
             <Stack
@@ -111,6 +119,7 @@ const ProfileLayout = () => {
                     },
                     transition: "all 0.3s ease",
                 }}
+                onClick={handleEditProfile}
             >
                 Edit Profile
             </Button>

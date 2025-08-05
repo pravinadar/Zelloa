@@ -24,7 +24,7 @@ const ProtectedLayout = () => {
         <AddPost/> 
 
         {/*Testing EditProfile component */}
-        {/* <EditProfile/>  */}
+        <EditProfile/> 
 
         {/* Outlet renders the child routes */}
         <Outlet />

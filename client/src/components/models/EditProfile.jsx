@@ -1,6 +1,8 @@
 import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Input, Stack, Typography, useMediaQuery } from "@mui/material"
 import { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { openEditProfileModal } from "../../redux/serviceSlice.js";
 
 const EditProfile = () => {
 
@@ -11,7 +13,13 @@ const EditProfile = () => {
 
   const imgRef = useRef()
 
-  const handleClose = () => { }
+  const {EditProfileModal} = useSelector(state=>state.service)
+
+  const dispatch = useDispatch();
+
+  const handleClose = () => { 
+    dispatch(openEditProfileModal(false));
+  }
 
   const handlePhoto = () => {
     imgRef.current.click();
@@ -22,7 +30,7 @@ const EditProfile = () => {
   return (
     <>
       <Dialog
-        open={true}
+        open={EditProfileModal}
         onClose={handleClose}
         fullWidth
         fullScreen={_700 ? false : true}
@@ -33,6 +41,10 @@ const EditProfile = () => {
           top={20}
           right={20}
           onClick={handleClose}
+          sx={{
+            padding: 1,
+            ":hover": { cursor: "pointer", bgcolor: "grey.200" }
+          }}
         >
 
           <RxCross2 size={28} />
