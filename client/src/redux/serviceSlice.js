@@ -5,7 +5,8 @@ export const serviceSlice = createSlice({
 
   initialState: {
     AddPostModal: false,
-    EditProfileModal: false
+    EditProfileModal: false,
+    MainMenu: false
   },
   
   reducers: {
@@ -15,6 +16,9 @@ export const serviceSlice = createSlice({
     },
     openEditProfileModal: (state,action)=>{
       state.EditProfileModal = action.payload
+    },
+    openMainMenu: (state, action) => {
+      state.MainMenu = action.payload
     }
 
   },
@@ -23,7 +27,8 @@ export const serviceSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { 
   openAddPostModal,
-  openEditProfileModal
+  openEditProfileModal,
+  openMainMenu
 } = serviceSlice.actions
 
 export default serviceSlice.reducer;

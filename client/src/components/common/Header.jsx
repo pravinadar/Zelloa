@@ -1,14 +1,25 @@
-import { Grid, Stack, Typography, useMediaQuery } from '@mui/material'
+import { Box, Grid, Stack, Typography, useMediaQuery } from '@mui/material'
 import { ImMenu } from "react-icons/im";
 
 
 import Navbar from './Navbar'
 import { IoMenu } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { openMainMenu } from '../../redux/serviceSlice';
 
 
 const Header = () => {
 
   const _700 = useMediaQuery('(min-width:700px)')
+
+  const dispatch = useDispatch();
+
+  const { MainMenu } = useSelector(state => state.service)
+
+  const handleMenuToggle = (event) => {
+    dispatch(openMainMenu(event.currentTarget));
+  }
+
   return (
     <>
       {_700 ?
@@ -34,7 +45,17 @@ const Header = () => {
             <Navbar />
           </Stack>
 
-          <ImMenu size={32} className='image-icon' />
+          <Box
+            sx={{
+              ":hover": { cursor: "pointer"},
+            }}>
+            <ImMenu
+              size={32}
+              className='image-icon'
+              onClick={handleMenuToggle}
+            />
+          </Box>
+
         </Stack>)
 
         :
@@ -87,7 +108,16 @@ const Header = () => {
                 Zelloa
               </Typography>
 
-              <IoMenu size={32} className='image-icon' />
+              <Box
+                sx={{
+                  ":hover": { cursor: "pointer", bgcolor: "grey.200" },
+                }}>
+                <IoMenu
+                  size={32}
+                  className='image-icon'
+                  onClick={handleMenuToggle}
+                />
+              </Box>
 
             </Grid>
 

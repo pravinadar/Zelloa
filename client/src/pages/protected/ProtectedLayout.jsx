@@ -18,7 +18,7 @@ const ProtectedLayout = () => {
         <Header />
 
         {/* Testing MainMenu component */}
-        {/* <MainMenu/>  */}
+        <MainMenu />
 
         {/*Testing AddPost component */}
         <AddPost/> 
