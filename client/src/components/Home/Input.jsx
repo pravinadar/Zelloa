@@ -9,7 +9,7 @@ const Input = () => {
     const dispatch = useDispatch();
     const { DarkMode } = useSelector(state=>state.service);
 
-    const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
+    const cardBg = DarkMode ? "#000000ff" : "#ffffff";
     const textSecondary = DarkMode ? "#bbbbbb" : "gray";
 
     const handleAddPost=()=>{

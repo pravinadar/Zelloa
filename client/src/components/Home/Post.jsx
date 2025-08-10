@@ -17,7 +17,7 @@ const Post = () => {
 
     const borderColor = DarkMode ? "#333" : "gray";
     const hoverShadow = DarkMode ? "5px 5px 10px rgba(0,0,0,0.6)" : "5px 5px 10px rgba(0,0,0,0.2)";
-    const cardBg = DarkMode ? "#1b1b1b" : "#fff";
+    const cardBg = DarkMode ? "#090909ff" : "#fff";
 
     return (
         <>
