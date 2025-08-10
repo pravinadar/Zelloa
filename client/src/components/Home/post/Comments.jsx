@@ -1,4 +1,5 @@
 import { Avatar, Stack, Typography, IconButton, Box, Menu, MenuItem } from "@mui/material"
+import { useState } from "react";
 import { IoIosMore } from "react-icons/io"
 import { useSelector } from "react-redux"
 
@@ -9,7 +10,11 @@ const Comments = () => {
     const textSecondary = DarkMode ? "#bbb" : "#555";
     const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
-    const handleClose = () => { }
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClose = () => { 
+        setAnchorEl(null);
+    }
 
     const handleDeleteComment = () => { }
 
@@ -97,27 +102,28 @@ const Comments = () => {
                         sx={{
                             "&:hover": {
                                 backgroundColor: DarkMode ? "#444" : "#eee",
+                                cursor: "pointer"
                             }
                         }} 
+                        onClick={(e) => setAnchorEl(e.currentTarget)}
                     >
                         <IoIosMore size={20} color={DarkMode ? "#f5f5f5" : "#000"} />
                     </IconButton>
                 </Stack>
             </Box>
 
-
-            {/* To-do */}
-            {/* <Menu
-                anchorEl={""}
-                open={true}
+            <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                disableAutoFocus={true}
             >
                 <MenuItem onClick={handleDeleteComment}>
                     Delete
                 </MenuItem>
-            </Menu> */}
+            </Menu>
         </>
     )
 }
