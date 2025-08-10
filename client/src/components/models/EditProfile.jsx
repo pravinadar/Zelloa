@@ -13,7 +13,9 @@ const EditProfile = () => {
 
   const imgRef = useRef()
 
-  const {EditProfileModal} = useSelector(state=>state.service)
+  const {EditProfileModal, DarkMode} = useSelector(state=>state.service)
+  const bg = DarkMode ? "#1e1e1e" : "#ffffff";
+  const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const dispatch = useDispatch();
 
@@ -34,6 +36,13 @@ const EditProfile = () => {
         onClose={handleClose}
         fullWidth
         fullScreen={_700 ? false : true}
+        PaperProps={{
+          sx:{
+            bgcolor:bg,
+            color:textPrimary,
+            transition:"background-color .25s,color .25s"
+          }
+        }}
       >
 
         <Box
@@ -110,6 +119,7 @@ const EditProfile = () => {
               value={"fetchUserName"}
               readOnly
               className="text1"
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
             />
 
           </Stack>
@@ -133,6 +143,7 @@ const EditProfile = () => {
               value={"fetchEmail"}
               readOnly
               className="text1"
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
             />
 
           </Stack>
@@ -155,6 +166,7 @@ const EditProfile = () => {
               type="text"
               placeholder="Write something about yourself..."
               className="text1"
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
               onChange={(e) => setBio(e.target.value)}
             />
 
@@ -165,7 +177,7 @@ const EditProfile = () => {
             sx={{
               border: "2px solid gray",
               borderRadius: "8px",
-              bgcolor: "GrayText",
+              bgcolor: DarkMode ? "#333" : "GrayText",
               color: "white",
               width: "100%",
               height: 40,
@@ -173,7 +185,7 @@ const EditProfile = () => {
               my: 2,
               ":hover": {
                 cursor: "pointer",
-                bgcolor: "gray",
+                bgcolor: DarkMode ? "#444" : "gray",
               }
             }}
             onClick={handleUpdate}

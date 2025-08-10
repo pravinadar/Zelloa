@@ -1,6 +1,10 @@
 import { Avatar, AvatarGroup, Badge, Stack, Stepper } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 const PostHeader = ({ isMobile }) => {
+  const { DarkMode } = useSelector(state=>state.service);
+  const lineColor = DarkMode ? "#444" : "gray";
+
     return (
         <>
             <Stack
@@ -52,7 +56,7 @@ const PostHeader = ({ isMobile }) => {
                         orientation='vertical'
                         activeStep={0}
                         sx={{
-                            border: "0.1rem solid gray",
+                            border: `0.1rem solid ${lineColor}`,
                             width: "0px",
                             height: "100%",
                         }}

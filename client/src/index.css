@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    transition: background-color .25s, color .25s;
+}
+
 .login-link{
     cursor: pointer;
     color: #1976d2;

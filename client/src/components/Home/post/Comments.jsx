@@ -1,7 +1,12 @@
 import { Avatar, Stack, Typography, IconButton, Box, Menu, MenuItem } from "@mui/material"
 import { IoIosMore } from "react-icons/io"
+import { useSelector } from "react-redux"
 
 const Comments = () => {
+  const { DarkMode } = useSelector(state=>state.service);
+  const hoverBg = DarkMode ? "#1f1f1f" : "#f3f3f3ff";
+  const border = DarkMode ? "#333" : "#e0e0e0";
+  const textSecondary = DarkMode ? "#bbb" : "#555";
 
     const handleClose = () => { }
 
@@ -10,16 +15,16 @@ const Comments = () => {
     return (
         <>
             <Box
-                sx={{
-                    width: "100%",
-                    py: 2,
-                    px: 2,
-                    borderBottom: "1px solid #e0e0e0",
-                    transition: "background-color 0.2s ease",
-                    "&:hover": {
-                        backgroundColor: "#f3f3f3ff"
-                    }
-                }}
+              sx={{
+                width: "100%",
+                py: 2,
+                px: 2,
+                borderBottom: `1px solid ${border}`,
+                transition: "background-color 0.2s ease",
+                "&:hover": {
+                  backgroundColor: hoverBg
+                }
+              }}
             >
 
                 <Stack
@@ -65,7 +70,7 @@ const Comments = () => {
                             <Typography
                                 variant="body2"
                                 fontSize={"0.9rem"}
-                                color={"text.secondary"}
+                                color={textSecondary}
                                 sx={{
                                     lineHeight: 1.4,
                                     wordBreak: "break-word",
@@ -77,7 +82,7 @@ const Comments = () => {
 
                             <Typography
                                 variant="caption"
-                                color={"text.disabled"}
+                                color={DarkMode ? "#777":"text.disabled"}
                                 fontSize={"0.75rem"}
                                 sx={{ mt: 1 }}
                             >

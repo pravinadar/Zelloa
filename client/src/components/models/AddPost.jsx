@@ -21,7 +21,9 @@ const AddPost = () => {
     dispatch(openAddPostModal(false));
   };
 
-  const {AddPostModal} = useSelector(state=>state.service)
+  const {AddPostModal, DarkMode} = useSelector(state=>state.service)
+  const bg = DarkMode ? "#1e1e1e" : "#ffffff";
+  const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const handleMediaRef = () => {
     mediaRef.current.click();
@@ -36,6 +38,13 @@ const AddPost = () => {
         onClose={handleClose}
         fullWidth
         fullScreen={_700 ? false : true}
+        PaperProps={{
+          sx:{
+            bgcolor:bg,
+            color:textPrimary,
+            transition:"background-color .25s,color .25s"
+          }
+        }}
       >
 
         <Box
@@ -43,10 +52,9 @@ const AddPost = () => {
           top={20}
           right={20}
           sx={{
-            bgcolor: "white",
             boxShadow: 3,
             padding: 1,
-            ":hover": { cursor: "pointer", bgcolor: "grey.200" }
+            ":hover": { cursor: "pointer" }
           }}
         >
           <RxCross1
@@ -89,6 +97,10 @@ const AddPost = () => {
                 placeholder="Let's Zip it..."
                 autoFocus
                 onChange={(e) => setText(e.target.value)}
+                style={{
+                  background: DarkMode ? "#2a2a2a" : "#fff",
+                  color: textPrimary
+                }}
               />
 
               {
@@ -137,10 +149,10 @@ const AddPost = () => {
             <Button
               size="large"
               sx={{
-                bgcolor: "GrayText",
-                color: "white",
+                bgcolor: DarkMode ? "#333" : "GrayText",
+                color: "#fff",
                 borderRadius: "10px",
-                ":hover": { bgcolor: "grey", cursor: "pointer" },
+                ":hover": { bgcolor: DarkMode ? "#444" : "grey", cursor: "pointer" },
               }}
               onClick={handlePost}>
               Post

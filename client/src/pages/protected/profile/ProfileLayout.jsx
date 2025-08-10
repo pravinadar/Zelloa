@@ -1,10 +1,14 @@
 import { Avatar, Button, Chip, Stack, Typography } from "@mui/material"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, Outlet } from "react-router-dom"
 import { openEditProfileModal } from "../../../redux/serviceSlice.js";
 
 const ProfileLayout = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { DarkMode } = useSelector(state=>state.service);
+  const logoSrc = DarkMode ? "/logo-darkmode2.svg" : "/logo-lightmode2.svg";
+  const borderColor = DarkMode ? "#333" : "gray";
+  const textSecondary = DarkMode ? "#bbb":"gray";
 
     const handleEditProfile = () => {
         dispatch(openEditProfileModal(true));
@@ -96,7 +100,7 @@ const ProfileLayout = () => {
                     </Typography>
 
                     <Link to={"/"} >
-                        <img src="/logo-lightmode2.svg" alt="logo" width={40} />
+                        <img src={logoSrc} alt="logo" width={40} />
                     </Link>
 
                 </Stack>
@@ -106,16 +110,16 @@ const ProfileLayout = () => {
             <Button
                 size="large"
                 sx={{
-                    color: "black",
+                    color: DarkMode ? "#f5f5f5" :"black",
                     width: "90%",
                     maxWidth: "800px",
                     mx: "auto",
                     textAlign: "center",
-                    border: "1px solid gray",
+                    border: `1px solid ${borderColor}`,
                     borderRadius: "10px",
                     ":hover": {
                         cursor: "pointer",
-                        backgroundColor: "lightgray",
+                        backgroundColor: DarkMode ? "#222" : "lightgray",
                     },
                     transition: "all 0.3s ease",
                 }}
@@ -134,6 +138,7 @@ const ProfileLayout = () => {
                 fontSize={"1.2rem"}
                 width={"90%"}
                 maxWidth={"800px"}
+                sx={{ borderBottom:`2px solid ${borderColor}` }}
             >
 
                 <Link to={'/profile/zips/1'} className="link">  {/* to be edited */}

@@ -5,11 +5,13 @@ import { FaEdit } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { openAddPostModal } from "../../redux/serviceSlice.js";
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const { DarkMode } = useSelector(state=>state.service);
+    const iconColor = DarkMode ? "#f5f5f5" : "black";
 
     const handleAddPost = () => {
         dispatch(openAddPostModal(true))
@@ -23,22 +25,19 @@ const Navbar = () => {
                 alignItems={'center'}
                 maxWidth={'100%'}
             >
-                <FaArrowLeft
-                    size={32}
-                    color={"black"}
-                />
+                <FaArrowLeft size={32} color={iconColor} />
 
                 <Link to={"/"} className="link">
                     <IoHomeSharp
                         size={32}
-                        color={"black"}
+                        color={iconColor}
                     />
                 </Link>
 
                 <Link to={"/search"} className="link">
                     <FaSearch
                         size={32}
-                        color={"black"}
+                        color={iconColor}
                     />
                 </Link>
 
@@ -49,12 +48,12 @@ const Navbar = () => {
                     <FaEdit size={32} onClick={handleAddPost} />
                 </Box>
 
-                <FaHeart size={32} />
+                <FaHeart size={32} color={iconColor} />
 
                 <Link to={"/profile/zips/1"} className="link">
                     <RxAvatar
                         size={32}
-                        color={"black"}
+                        color={iconColor}
                     />
                 </Link>
 

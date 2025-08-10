@@ -9,12 +9,12 @@ import { openMainMenu } from '../../redux/serviceSlice';
 
 
 const Header = () => {
-
   const _700 = useMediaQuery('(min-width:700px)')
-
   const dispatch = useDispatch();
-
-  const { MainMenu } = useSelector(state => state.service)
+  const { MainMenu, DarkMode } = useSelector(state => state.service)
+  const logoSrc = DarkMode ? "/logo-darkmode2.svg" : "/logo-lightmode2.svg";
+  const barBg = DarkMode ? "#1e1e1e" : "aliceblue";
+  const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const handleMenuToggle = (event) => {
     dispatch(openMainMenu(event.currentTarget));
@@ -31,16 +31,18 @@ const Header = () => {
           height={52}
           top={0}
           py={1}
+          sx={{ bgcolor: barBg, color:textPrimary, transition:"background-color .25s,color .25s" }}
         >
 
-          <img src="/logo-lightmode2.svg" alt="logo" width={60} height={48} />
+          <img src={logoSrc} alt="logo" width={60} height={48} />
 
           <Stack
             justifyContent={'center'}
             width={'550px'}
             zIndex={2}
-            height={96}
-            bgcolor={'aliceblue'}
+            // height={96}
+            // bgcolor={'aliceblue'}
+            sx={{ bgcolor: barBg }}
           >
             <Navbar />
           </Stack>
@@ -69,7 +71,8 @@ const Header = () => {
               width={"100%"}
               height={52}
               p={1}
-              bgcolor={"aliceblue"}
+              bgcolor={barBg}
+              sx={{ bgcolor: barBg, color:textPrimary }}
               zIndex={2}
             >
               <Navbar />
@@ -80,12 +83,14 @@ const Header = () => {
               height={60}
               justifyContent={"space-between"}
               alignItems={"center"}
-              p={1}>
+              p={1}
+              sx={{ color:textPrimary }}
+            >
 
               <Grid>
 
                 <img
-                  src="/logo-lightmode2.svg"
+                  src={logoSrc}
                   alt="logo"
                   width={60}
                   height={48}
@@ -97,7 +102,7 @@ const Header = () => {
                 variant="h6"
                 component="h1"
                 fontWeight="bold"
-                color="black"
+                color={textPrimary}
                 sx={{
                   fontFamily: 'Roboto, Arial, sans-serif',
                   letterSpacing: '0.5px',
@@ -110,7 +115,7 @@ const Header = () => {
 
               <Box
                 sx={{
-                  ":hover": { cursor: "pointer", bgcolor: "grey.200" },
+                  ":hover": { cursor: "pointer" },
                 }}>
                 <IoMenu
                   size={32}

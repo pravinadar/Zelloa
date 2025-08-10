@@ -1,7 +1,12 @@
 import { Stack, TextField, Typography, Button, useMediaQuery } from '@mui/material'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Register = () => {
+  const { DarkMode } = useSelector(state=>state.service);
+  const bg = DarkMode ? "#121212" : "#ffffff";
+  const cardBg = DarkMode ? "#1e1e1e" : "rgba(255,255,255,0.85)";
+  const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const _700 = useMediaQuery('(max-width:700px)')
 
@@ -43,9 +48,12 @@ const Register = () => {
         justifyContent={'center'}
         alignItems={'center'}
         sx={{
-          backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg")',
+          backgroundColor:bg,
+          backgroundImage: DarkMode ? 'none' : 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg")',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
+          color:textPrimary,
+          transition:"background-color .25s,color .25s"
         }}
       >
 
@@ -53,6 +61,13 @@ const Register = () => {
           flexDirection={'column'}
           width={'30%'}
           gap={2}
+          sx={{
+            bgcolor: cardBg,
+            p:4,
+            borderRadius:2,
+            backdropFilter: DarkMode ? 'none':'blur(3px)',
+            boxShadow: DarkMode ? '0 0 8px #000' : '0 0 12px rgba(0,0,0,0.3)'
+          }}
         >
 
           <Typography
@@ -72,6 +87,8 @@ const Register = () => {
               variant="outlined"
               placeholder='Enter your username'
               onChange={(e) => (setUsername(e.target.value))}
+              InputProps={{ sx:{ color:textPrimary } }}
+              InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
             />
 
           }
@@ -80,6 +97,8 @@ const Register = () => {
             variant="outlined"
             placeholder='Enter your Email'
             onChange={(e) => (setEmail(e.target.value))}
+            InputProps={{ sx:{ color:textPrimary } }}
+            InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
           />
           <TextField
             label="Password"
@@ -87,6 +106,8 @@ const Register = () => {
             placeholder='Enter your Password'
             type='password'
             onChange={(e) => (setPassword(e.target.value))}
+            InputProps={{ sx:{ color:textPrimary } }}
+            InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
           />
 
           <Button

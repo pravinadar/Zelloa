@@ -1,8 +1,11 @@
 import { Button, Stack, Typography, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const ErrorPage = () => {
     const navigate = useNavigate()
+    const { DarkMode } = useSelector(state=>state.service);
+    const bg = DarkMode ? "#121212" : undefined;
 
     const handleGoHome = () => {
         navigate(-1) // Navigate back to the previous page
@@ -16,10 +19,12 @@ const ErrorPage = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundImage: 'url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+                background: DarkMode ? bg : 'url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                color: DarkMode ? "#f5f5f5" : "inherit",
+                transition:"background .25s,color .25s"
             }}
         >
             <Stack

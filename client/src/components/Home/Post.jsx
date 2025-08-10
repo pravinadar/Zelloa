@@ -2,27 +2,41 @@ import { Stack, Typography, useMediaQuery } from '@mui/material'
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import PostHeader from './post/PostHeader';
 import PostBody from './post/PostBody';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleDeletePost } from '../../redux/serviceSlice';
 
 const Post = () => {
     const isMobile = useMediaQuery('(max-width:700px)')
-    
+
+    const dispatch = useDispatch();
+    const { DarkMode } = useSelector(state=>state.service);
+
+    const handleToggleDeletePost = (e) => {
+        dispatch(toggleDeletePost(e.currentTarget));
+    }
+
+    const borderColor = DarkMode ? "#333" : "gray";
+    const hoverShadow = DarkMode ? "5px 5px 10px rgba(0,0,0,0.6)" : "5px 5px 10px rgba(0,0,0,0.2)";
+    const cardBg = DarkMode ? "#1b1b1b" : "#fff";
+
     return (
         <>
             <Stack
                 flexDirection={"row"}
                 justifyContent={"space-between"}
-                borderBottom={"2px solid gray"}
+                borderBottom={`2px solid ${borderColor}`}
                 p={isMobile ? 1 : 1.5}
                 sx={{
                     ":hover": {
                         cursor: "pointer",
-                        boxShadow: { xs: "3px 3px 5px rgba(0,0,0,0.2)", sm: "5px 5px 10px rgba(0,0,0,0.2)" },
+                        boxShadow: { xs: hoverShadow, sm: hoverShadow },
                     },
-                    transition: "all 0.2s ease-in-out"
+                    bgcolor: cardBg,
+                    transition: "background-color .25s, box-shadow .2s"
                 }}>
 
-                <Stack 
-                    flexDirection={"row"} 
+                <Stack
+                    flexDirection={"row"}
                     gap={{ xs: 1, sm: 2 }}
                     width="100%"
                 >
@@ -38,14 +52,18 @@ const Post = () => {
                 >
                     <Typography
                         variant="caption"
-                        color={"gray"}
+                        color={ DarkMode ? "#aaa" : "gray" }
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         textAlign="right"
                     >
                         {isMobile ? "2h" : "2 hours ago"}
                     </Typography>
 
-                    <MdOutlineMoreHoriz size={isMobile ? 18 : 24} style={{ flexShrink: 0 }} />
+                    <MdOutlineMoreHoriz
+                        size={isMobile ? 18 : 24}
+                        style={{ flexShrink: 0 }}
+                        onClick={handleToggleDeletePost}
+                    />
                 </Stack>
             </Stack>
         </>

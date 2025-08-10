@@ -2,8 +2,13 @@ import { Stack, Typography, Box } from '@mui/material'
 import { FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa'
 import { IoSend } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const PostBody = ({ isMobile }) => {
+  const { DarkMode } = useSelector(state=>state.service);
+  const iconColor = DarkMode ? "#bbb" : "#555";
+  const captionColor = DarkMode ? "#e0e0e0" : "#000";
+
     return (
         <>
             <Stack
@@ -33,7 +38,7 @@ const PostBody = ({ isMobile }) => {
                             <Typography
                                 variant="h5"
                                 fontSize={{ xs: "0.95rem", sm: "1.2rem" }}
-                                sx={{ lineHeight: 1.3 }}
+                                sx={{ lineHeight: 1.3, color:captionColor }}
                             >
                                 Caption
                             </Typography>
@@ -69,9 +74,10 @@ const PostBody = ({ isMobile }) => {
                             '& svg': {
                                 cursor: 'pointer',
                                 transition: 'transform 0.2s ease',
-                                color: '#555',
+                                color: iconColor,
                                 '&:hover': {
-                                    transform: 'scale(1.1)'
+                                    transform: 'scale(1.1)',
+                                    color: DarkMode ? "#fff" : "#000"
                                 }
                             }
                         }}
@@ -90,7 +96,7 @@ const PostBody = ({ isMobile }) => {
                 >
                     <Typography
                         variant="caption"
-                        color="gray"
+                        color={DarkMode ? "#aaa":"gray"}
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >
@@ -99,7 +105,7 @@ const PostBody = ({ isMobile }) => {
                     
                     <Typography
                         variant="caption"
-                        color="gray"
+                        color={DarkMode ? "#aaa":"gray"}
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >

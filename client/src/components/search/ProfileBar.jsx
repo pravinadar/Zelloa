@@ -1,8 +1,13 @@
 import { Avatar, Button, Stack, Typography, useMediaQuery } from "@mui/material"
+import { useSelector } from "react-redux"
 
 const ProfileBar = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
-    
+    const { DarkMode } = useSelector(state=>state.service);
+    const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
+    const hoverShadow = DarkMode ? "0 0 14px #000" : "1px 6px 20px gray";
+    const baseShadow = DarkMode ? "0 0 8px #000" : "-1px 3px 10px gray";
+
     return (
         <>
             <Stack
@@ -12,15 +17,17 @@ const ProfileBar = () => {
                 px={isMobile ? 0.75 : 1}
                 py={isMobile ? 1.5 : 2}
                 mx={"auto"}
-                boxShadow={"-1px 3px 10px gray"}
+                boxShadow={baseShadow}
                 width={"90%"}
                 maxWidth={"750px"}
                 borderRadius={isMobile ? "10px" : "15px"}
                 sx={{
                     ":hover": {
                         cursor: "pointer",
-                        boxShadow: "1px 6px 20px gray",
+                        boxShadow: hoverShadow,
                     },
+                    bgcolor: cardBg,
+                    color: DarkMode ? "#f5f5f5" : "#000",
                     transition: "all 0.3s ease"
                 }}
             >
@@ -57,19 +64,19 @@ const ProfileBar = () => {
                     </Stack>
                 </Stack>
 
-                <Button 
+                <Button
                     size={isMobile ? "small" : "medium"}
                     sx={{
                         border: "1px solid gray",
                         borderRadius: isMobile ? "8px" : "10px",
-                        color: "black",
+                        color: DarkMode ? "#f5f5f5" : "black",
                         px: isMobile ? 1.5 : 2,
                         py: isMobile ? 0.5 : 1,
                         height: isMobile ? 30 : 36,
                         minWidth: isMobile ? 65 : 80,
                         fontSize: isMobile ? "0.8rem" : "0.875rem",
                         ":hover": {
-                            backgroundColor: "lightgray",
+                            backgroundColor: DarkMode ? "#333" : "lightgray",
                         },
                         transition: "all 0.3s ease",
                     }}

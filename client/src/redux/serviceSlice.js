@@ -6,7 +6,9 @@ export const serviceSlice = createSlice({
   initialState: {
     AddPostModal: false,
     EditProfileModal: false,
-    MainMenu: false
+    MainMenu: false,
+    DeletePost: false,
+    DarkMode: false
   },
   
   reducers: {
@@ -19,6 +21,12 @@ export const serviceSlice = createSlice({
     },
     openMainMenu: (state, action) => {
       state.MainMenu = action.payload
+    },
+    toggleDeletePost: (state,action) => {
+      state.DeletePost = action.payload
+    },
+    toggleDarkMode: (state) => {
+      state.DarkMode = !state.DarkMode;
     }
 
   },
@@ -28,7 +36,9 @@ export const serviceSlice = createSlice({
 export const { 
   openAddPostModal,
   openEditProfileModal,
-  openMainMenu
+  openMainMenu,
+  toggleDeletePost,
+  toggleDarkMode
 } = serviceSlice.actions
 
 export default serviceSlice.reducer;
