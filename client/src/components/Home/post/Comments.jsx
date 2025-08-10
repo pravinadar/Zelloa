@@ -3,10 +3,11 @@ import { IoIosMore } from "react-icons/io"
 import { useSelector } from "react-redux"
 
 const Comments = () => {
-  const { DarkMode } = useSelector(state=>state.service);
-  const hoverBg = DarkMode ? "#1f1f1f" : "#f3f3f3ff";
-  const border = DarkMode ? "#333" : "#e0e0e0";
-  const textSecondary = DarkMode ? "#bbb" : "#555";
+    const { DarkMode } = useSelector(state => state.service);
+    const hoverBg = DarkMode ? "#1f1f1f" : "#f3f3f3ff";
+    const border = DarkMode ? "#333" : "#e0e0e0";
+    const textSecondary = DarkMode ? "#bbb" : "#555";
+    const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
     const handleClose = () => { }
 
@@ -15,16 +16,16 @@ const Comments = () => {
     return (
         <>
             <Box
-              sx={{
-                width: "100%",
-                py: 2,
-                px: 2,
-                borderBottom: `1px solid ${border}`,
-                transition: "background-color 0.2s ease",
-                "&:hover": {
-                  backgroundColor: hoverBg
-                }
-              }}
+                sx={{
+                    width: "100%",
+                    py: 2,
+                    px: 2,
+                    borderBottom: `1px solid ${border}`,
+                    transition: "background-color 0.2s ease",
+                    "&:hover": {
+                        backgroundColor: hoverBg
+                    }
+                }}
             >
 
                 <Stack
@@ -61,7 +62,7 @@ const Comments = () => {
                                 variant="subtitle1"
                                 fontWeight={600}
                                 fontSize={"0.95rem"}
-                                color={"text.primary"}
+                                color={textPrimary}
                                 sx={{ lineHeight: 1.2 }}
                             >
                                 username
@@ -82,7 +83,7 @@ const Comments = () => {
 
                             <Typography
                                 variant="caption"
-                                color={DarkMode ? "#777":"text.disabled"}
+                                color={DarkMode ? "#777" : "text.disabled"}
                                 fontSize={"0.75rem"}
                                 sx={{ mt: 1 }}
                             >
@@ -94,14 +95,12 @@ const Comments = () => {
                     <IconButton
                         size="small"
                         sx={{
-                            color: "text.disabled",
                             "&:hover": {
-                                color: "text.secondary",
-                                backgroundColor: "#f5f5f5"
+                                backgroundColor: DarkMode ? "#444" : "#eee",
                             }
-                        }}
+                        }} 
                     >
-                        <IoIosMore size={20} />
+                        <IoIosMore size={20} color={DarkMode ? "#f5f5f5" : "#000"} />
                     </IconButton>
                 </Stack>
             </Box>
