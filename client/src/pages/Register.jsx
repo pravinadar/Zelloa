@@ -1,6 +1,7 @@
 import { Stack, TextField, Typography, Button, useMediaQuery } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useSignUpMutation } from '../redux/serviceAPI';
 
 const Register = () => {
   const { DarkMode } = useSelector(state=>state.service);
@@ -9,6 +10,8 @@ const Register = () => {
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const _700 = useMediaQuery('(max-width:700px)')
+
+  const [signUpUser, signUpUserData ] = useSignUpMutation();
 
   const [login, setLogin] = useState(false)
   const [username, setUsername] = useState("")
@@ -29,7 +32,7 @@ const Register = () => {
     // testing
   }
 
-  const handleRegister=()=>{
+  const handleRegister=async ()=>{
     const data ={
       username:username,
       email:email,
@@ -37,7 +40,15 @@ const Register = () => {
     }
     console.log("handleRegister called with", data)
     // testing
+
+    await signUpUser(data);
   }
+
+  useEffect(()=>{
+    if(signUpUserData.isSuccess){ // testing
+      console.log(`User registered successfully : ${signUpUserData.data}`);
+    }
+  },[signUpUserData.isSuccess])
 
   return (
     <>
