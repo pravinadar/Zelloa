@@ -1,7 +1,7 @@
 import { Stack, TextField, Typography, Button, useMediaQuery } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useSignUpMutation } from '../redux/serviceAPI';
+import { useLoginMutation, useSignUpMutation } from '../redux/serviceAPI';
 
 const Register = () => {
   const { DarkMode } = useSelector(state=>state.service);
@@ -12,6 +12,7 @@ const Register = () => {
   const _700 = useMediaQuery('(max-width:700px)')
 
   const [signUpUser, signUpUserData ] = useSignUpMutation();
+  const [loginUser, loginUserData] = useLoginMutation();
 
   const [login, setLogin] = useState(false)
   const [username, setUsername] = useState("")
@@ -22,7 +23,7 @@ const Register = () => {
     setLogin(!login)
   }
 
-  const handleLogin=()=>{
+  const handleLogin=async()=>{
 
     const data ={
       email:email,
@@ -30,6 +31,8 @@ const Register = () => {
     }
     console.log("handleLogin called with", data)
     // testing
+
+    await loginUser(data);
   }
 
   const handleRegister=async ()=>{
@@ -47,8 +50,12 @@ const Register = () => {
   useEffect(()=>{
     if(signUpUserData.isSuccess){ // testing
       console.log(`User registered successfully : ${signUpUserData.data}`);
+      setLogin(true);
     }
-  },[signUpUserData.isSuccess])
+    if(loginUserData.isSuccess){ // testing
+      console.log(`User logged in successfully : ${loginUserData.data}`);
+    }
+  },[signUpUserData.isSuccess, loginUserData.isSuccess])
 
   return (
     <>

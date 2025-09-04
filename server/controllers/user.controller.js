@@ -5,6 +5,19 @@ import cloudinary from "../config/cloudinary.js";
 
 import User from "../models/user.model.js";
 
+// Cookie configuration for consistent settings across login/signup/logout
+const getCookieConfig = () => {
+    const isDevelopment = process.env.NODE_ENV !== 'production';
+    
+    return {
+        httpOnly: true,
+        sameSite: isDevelopment ? "lax" : "none",
+        secure: !isDevelopment, // false in development, true in production
+        path: "/",
+        partitioned: !isDevelopment // only in production with secure
+    };
+};
+
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
@@ -80,12 +93,10 @@ export const SignUp = async (req, res) => {
                 });
         }
 
+        const cookieConfig = getCookieConfig();
         res.cookie("accessToken", accessToken, {
-            httpOnly: true,
-            sameSite: "none",
+            ...cookieConfig,
             maxAge: 24 * 60 * 60 * 1000, // 1 day
-            secure: true,
-            partitioned: true
         });
 
         return res.status(201).json({
@@ -140,7 +151,7 @@ export const Login = async (req, res) => {
 
         // console.log("Password from request:", password);
         // console.log("User password from DB:", userExists.password);
-        // console.log("User object:", userExists);
+        console.log("User object:", userExists);
 
         const accessToken = jwt.sign(
             { id: userExists._id },
@@ -154,11 +165,10 @@ export const Login = async (req, res) => {
             });
         }
 
+        const cookieConfig = getCookieConfig();
         res.cookie("accessToken", accessToken, {
-            httpOnly: true,
-            sameSite: "none",
+            ...cookieConfig,
             maxAge: 24 * 60 * 60 * 1000, // 1 day
-            secure: true
         });
 
         return res.status(200).json({
@@ -443,11 +453,9 @@ export const searchUser = async (req, res) => {
 
 export const logoutUser = async (req, res) => {
     try {
-        res.clearCookie("accessToken", {
-            httpOnly: true,
-            sameSite: "none",
-            secure: true
-        });
+        // Clear the cookie with EXACT same attributes as when it was set
+        const cookieConfig = getCookieConfig();
+        res.clearCookie("accessToken", cookieConfig);
     
         res.status(200).json({
             message: "User logged out successfully"

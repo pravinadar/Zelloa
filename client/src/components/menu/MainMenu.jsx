@@ -1,9 +1,12 @@
 import { Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { openMainMenu, toggleDarkMode } from '../../redux/serviceSlice';
+import { addUserInfo, openMainMenu, toggleDarkMode } from '../../redux/serviceSlice';
+import { useLogoutMutation } from '../../redux/serviceAPI';
+import { useEffect } from 'react';
 
 const MainMenu = () => {
+    const [logoutUser, logoutUserData] = useLogoutMutation();
 
     const dispatch = useDispatch();
 
@@ -16,7 +19,19 @@ const MainMenu = () => {
         dispatch(toggleDarkMode())
     }
 
-    const handleLogout = () => {}
+    const handleLogout = async () => {
+        handleClose();
+        await logoutUser().unwrap();
+    }
+
+    useEffect(()=>{
+        if(logoutUserData.isSuccess){
+            dispatch(addUserInfo(null))
+            console.log("User logged out successfully");
+            window.location.reload(); // redirect to register page
+        }
+        
+    },[logoutUserData.isSuccess])
 
     const {MainMenu:anchorEl, DarkMode}=useSelector(state => state.service);
     const paperSx = {

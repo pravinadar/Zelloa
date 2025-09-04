@@ -12,21 +12,49 @@ import Repost from './pages/protected/profile/Rezips'
 import SinglePost from './pages/protected/SinglePost'
 import Register from './pages/Register'
 import ErrorPage from './pages/ErrorPage'
+import { useMyInfoQuery } from './redux/serviceAPI'
 
 function App() {
-  const { DarkMode } = useSelector(state=>state.service);
+  const { DarkMode, myInfo } = useSelector(state=>state.service);
   const bg = DarkMode ? "#121212" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
+  const { data, isError, isLoading } = useMyInfoQuery();
+
+  // If we're loading, show a loading state
+  if (isLoading) {
+    return (
+      <Box 
+        minHeight={'100vh'} 
+        sx={{ 
+          bgcolor: bg, 
+          color: textPrimary, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center' 
+        }}
+      >
+        Loading...
+      </Box>
+    );
+  }
+
+  // If there's an error, no data, or myInfo is explicitly null, show register page
+  if (isError || !data || myInfo === null) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 
   return (
     <>
       <Box minHeight={'100vh'} sx={{ bgcolor:bg, color:textPrimary, transition:"background-color .25s,color .25s" }}>
         <BrowserRouter>
           <Routes>
-
-            <Route path="/register" element={<Register />} />
-
-            <Route path="/" element={<ProtectedLayout />} >
+              <Route path="/" element={<ProtectedLayout />} >
               <Route path='' element={<Home />} />
               <Route path='search' element={<Search />} />
               <Route path='post/:id' element={<SinglePost />} />
@@ -37,7 +65,7 @@ function App() {
                 <Route path='rezips/:id' element={<Repost />} />
               </Route>
 
-            </Route>
+              </Route>
 
             <Route path='*' element={<ErrorPage />} />
           </Routes>

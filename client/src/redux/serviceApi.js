@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { addUserInfo } from "./serviceSlice";
 
 export const serviceApi = createApi({
     reducerPath: "ServiceApi",
@@ -17,8 +18,49 @@ export const serviceApi = createApi({
                 body: credentials
             }),
             invalidatesTags: ["Me"]
+        }),
+
+        login: builder.mutation({
+            query: (credentials) => ({
+                url: "login",
+                method: "POST",
+                body: credentials
+            }),
+            invalidatesTags: ["Me"]
+        }),
+
+        myInfo: builder.query({
+            query: () => ({
+                url: "user",
+                method: "GET"
+            }),
+            providesTags: ["Me"],
+            async onQueryStarted(params, {dispatch, queryFulfilled}){
+                try {
+                    const {data} = await queryFulfilled;
+                    if(!data) return;
+                    console.log("Fetched User Info : ", data);
+                    dispatch(addUserInfo({data}))
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        }),
+
+        logout: builder.mutation({
+            query: () => ({
+                url: "user/logout",
+                method: "POST"
+            }),
+            invalidatesTags: ["Me"]
         })
     })
 })
 
-export const { useSignUpMutation } = serviceApi
+export const { 
+    useSignUpMutation, 
+    useLoginMutation,
+    useMyInfoQuery,
+    useLogoutMutation
+
+} = serviceApi

@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use("/api", router);
 
 app.get("/",(req,res)=>{
-    res.send("Hello World!");
+    res.send("API is running....");
 })
 
 app.listen(PORT, () => {

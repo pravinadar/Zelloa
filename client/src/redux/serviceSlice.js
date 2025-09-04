@@ -8,7 +8,8 @@ export const serviceSlice = createSlice({
     EditProfileModal: false,
     MainMenu: false,
     DeletePost: false,
-    DarkMode: false
+    DarkMode: false,
+    myInfo: null
   },
   
   reducers: {
@@ -27,6 +28,9 @@ export const serviceSlice = createSlice({
     },
     toggleDarkMode: (state) => {
       state.DarkMode = !state.DarkMode;
+    },
+    addUserInfo: (state, action)=>{
+      state.myInfo = action.payload
     }
 
   },
@@ -38,7 +42,8 @@ export const {
   openEditProfileModal,
   openMainMenu,
   toggleDeletePost,
-  toggleDarkMode
+  toggleDarkMode,
+  addUserInfo
 } = serviceSlice.actions
 
 export default serviceSlice.reducer;
