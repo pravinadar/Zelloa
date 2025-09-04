@@ -10,7 +10,7 @@ const MainMenu = () => {
 
     const dispatch = useDispatch();
 
-    const handleClose = () => { 
+    const handleClose = () => {
         dispatch(openMainMenu(false));
     }
 
@@ -24,20 +24,20 @@ const MainMenu = () => {
         await logoutUser().unwrap();
     }
 
-    useEffect(()=>{
-        if(logoutUserData.isSuccess){
+    useEffect(() => {
+        if (logoutUserData.isSuccess) {
             dispatch(addUserInfo(null))
             console.log("User logged out successfully");
             window.location.reload(); // redirect to register page
         }
-        
-    },[logoutUserData.isSuccess])
 
-    const {MainMenu:anchorEl, DarkMode}=useSelector(state => state.service);
+    }, [logoutUserData.isSuccess])
+
+    const { MainMenu: anchorEl, DarkMode } = useSelector(state => state.service);
     const paperSx = {
         bgcolor: DarkMode ? "#1e1e1e" : "#ffffff",
         color: DarkMode ? "#f5f5f5" : "#000",
-        transition:"background-color .25s,color .25s"
+        transition: "background-color .25s,color .25s"
     }
 
     return (

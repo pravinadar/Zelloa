@@ -9,7 +9,7 @@ const Post = () => {
     const isMobile = useMediaQuery('(max-width:700px)')
 
     const dispatch = useDispatch();
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
 
     const handleToggleDeletePost = (e) => {
         dispatch(toggleDeletePost(e.currentTarget));
@@ -52,7 +52,7 @@ const Post = () => {
                 >
                     <Typography
                         variant="caption"
-                        color={ DarkMode ? "#aaa" : "gray" }
+                        color={DarkMode ? "#aaa" : "gray"}
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         textAlign="right"
                     >

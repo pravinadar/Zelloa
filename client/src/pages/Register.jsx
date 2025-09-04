@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux'
 import { useLoginMutation, useSignUpMutation } from '../redux/serviceAPI';
 
 const Register = () => {
-  const { DarkMode } = useSelector(state=>state.service);
+  const { DarkMode } = useSelector(state => state.service);
   const bg = DarkMode ? "#121212" : "#ffffff";
   const cardBg = DarkMode ? "#1e1e1e" : "rgba(255,255,255,0.85)";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const _700 = useMediaQuery('(max-width:700px)')
 
-  const [signUpUser, signUpUserData ] = useSignUpMutation();
+  const [signUpUser, signUpUserData] = useSignUpMutation();
   const [loginUser, loginUserData] = useLoginMutation();
 
   const [login, setLogin] = useState(false)
@@ -23,11 +23,11 @@ const Register = () => {
     setLogin(!login)
   }
 
-  const handleLogin=async()=>{
+  const handleLogin = async () => {
 
-    const data ={
-      email:email,
-      password:password
+    const data = {
+      email: email,
+      password: password
     }
     console.log("handleLogin called with", data)
     // testing
@@ -35,11 +35,11 @@ const Register = () => {
     await loginUser(data);
   }
 
-  const handleRegister=async ()=>{
-    const data ={
-      username:username,
-      email:email,
-      password:password
+  const handleRegister = async () => {
+    const data = {
+      username: username,
+      email: email,
+      password: password
     }
     console.log("handleRegister called with", data)
     // testing
@@ -47,15 +47,15 @@ const Register = () => {
     await signUpUser(data);
   }
 
-  useEffect(()=>{
-    if(signUpUserData.isSuccess){ // testing
+  useEffect(() => {
+    if (signUpUserData.isSuccess) { // testing
       console.log(`User registered successfully : ${signUpUserData.data}`);
       setLogin(true);
     }
-    if(loginUserData.isSuccess){ // testing
+    if (loginUserData.isSuccess) { // testing
       console.log(`User logged in successfully : ${loginUserData.data}`);
     }
-  },[signUpUserData.isSuccess, loginUserData.isSuccess])
+  }, [signUpUserData.isSuccess, loginUserData.isSuccess])
 
   return (
     <>
@@ -66,12 +66,12 @@ const Register = () => {
         justifyContent={'center'}
         alignItems={'center'}
         sx={{
-          backgroundColor:bg,
+          backgroundColor: bg,
           backgroundImage: DarkMode ? 'none' : 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg")',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          color:textPrimary,
-          transition:"background-color .25s,color .25s"
+          color: textPrimary,
+          transition: "background-color .25s,color .25s"
         }}
       >
 
@@ -81,9 +81,9 @@ const Register = () => {
           gap={2}
           sx={{
             bgcolor: cardBg,
-            p:4,
-            borderRadius:2,
-            backdropFilter: DarkMode ? 'none':'blur(3px)',
+            p: 4,
+            borderRadius: 2,
+            backdropFilter: DarkMode ? 'none' : 'blur(3px)',
             boxShadow: DarkMode ? '0 0 8px #000' : '0 0 12px rgba(0,0,0,0.3)'
           }}
         >
@@ -105,8 +105,8 @@ const Register = () => {
               variant="outlined"
               placeholder='Enter your username'
               onChange={(e) => (setUsername(e.target.value))}
-              InputProps={{ sx:{ color:textPrimary } }}
-              InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
+              InputProps={{ sx: { color: textPrimary } }}
+              InputLabelProps={{ sx: { color: DarkMode ? "#bbb" : "inherit" } }}
             />
 
           }
@@ -115,8 +115,8 @@ const Register = () => {
             variant="outlined"
             placeholder='Enter your Email'
             onChange={(e) => (setEmail(e.target.value))}
-            InputProps={{ sx:{ color:textPrimary } }}
-            InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
+            InputProps={{ sx: { color: textPrimary } }}
+            InputLabelProps={{ sx: { color: DarkMode ? "#bbb" : "inherit" } }}
           />
           <TextField
             label="Password"
@@ -124,8 +124,8 @@ const Register = () => {
             placeholder='Enter your Password'
             type='password'
             onChange={(e) => (setPassword(e.target.value))}
-            InputProps={{ sx:{ color:textPrimary } }}
-            InputLabelProps={{ sx:{ color: DarkMode ? "#bbb":"inherit" } }}
+            InputProps={{ sx: { color: textPrimary } }}
+            InputLabelProps={{ sx: { color: DarkMode ? "#bbb" : "inherit" } }}
           />
 
           <Button

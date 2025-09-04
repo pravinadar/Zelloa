@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const PostBody = ({ isMobile }) => {
-  const { DarkMode } = useSelector(state=>state.service);
-  const iconColor = DarkMode ? "#bbb" : "#555";
-  const captionColor = DarkMode ? "#e0e0e0" : "#000";
+    const { DarkMode } = useSelector(state => state.service);
+    const iconColor = DarkMode ? "#bbb" : "#555";
+    const captionColor = DarkMode ? "#e0e0e0" : "#000";
 
     return (
         <>
@@ -38,7 +38,7 @@ const PostBody = ({ isMobile }) => {
                             <Typography
                                 variant="h5"
                                 fontSize={{ xs: "0.95rem", sm: "1.2rem" }}
-                                sx={{ lineHeight: 1.3, color:captionColor }}
+                                sx={{ lineHeight: 1.3, color: captionColor }}
                             >
                                 Caption
                             </Typography>
@@ -96,16 +96,16 @@ const PostBody = ({ isMobile }) => {
                 >
                     <Typography
                         variant="caption"
-                        color={DarkMode ? "#aaa":"gray"}
+                        color={DarkMode ? "#aaa" : "gray"}
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >
                         12 Likes
                     </Typography>
-                    
+
                     <Typography
                         variant="caption"
-                        color={DarkMode ? "#aaa":"gray"}
+                        color={DarkMode ? "#aaa" : "gray"}
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >

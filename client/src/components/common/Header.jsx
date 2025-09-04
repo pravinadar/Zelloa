@@ -31,7 +31,7 @@ const Header = () => {
           height={52}
           top={0}
           py={1}
-          sx={{ bgcolor: barBg, color:textPrimary, transition:"background-color .25s,color .25s" }}
+          sx={{ bgcolor: barBg, color: textPrimary, transition: "background-color .25s,color .25s" }}
         >
 
           <img src={logoSrc} alt="logo" width={60} height={48} />
@@ -49,7 +49,7 @@ const Header = () => {
 
           <Box
             sx={{
-              ":hover": { cursor: "pointer"},
+              ":hover": { cursor: "pointer" },
             }}>
             <ImMenu
               size={32}
@@ -72,7 +72,7 @@ const Header = () => {
               height={52}
               p={1}
               bgcolor={barBg}
-              sx={{ bgcolor: barBg, color:textPrimary }}
+              sx={{ bgcolor: barBg, color: textPrimary }}
               zIndex={2}
             >
               <Navbar />
@@ -84,7 +84,7 @@ const Header = () => {
               justifyContent={"space-between"}
               alignItems={"center"}
               p={1}
-              sx={{ color:textPrimary }}
+              sx={{ color: textPrimary }}
             >
 
               <Grid>

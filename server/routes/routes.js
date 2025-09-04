@@ -1,18 +1,18 @@
 import express from "express";
 
-import { 
-    followUser, 
-    getUserDetails, 
-    Login, 
-    logoutUser, 
-    searchUser, 
-    SignUp, 
-    UpdateProfile, 
+import {
+    followUser,
+    getUserDetails,
+    Login,
+    logoutUser,
+    searchUser,
+    SignUp,
+    UpdateProfile,
     userInfo
 } from "../controllers/user.controller.js";
 
-import { 
-    addPost, 
+import {
+    addPost,
     allPosts,
     deletePost,
     likePost,
@@ -20,8 +20,8 @@ import {
     singlePost,
 } from "../controllers/post.controller.js";
 
-import { 
-    addComment, 
+import {
+    addComment,
     deleteComments
 } from "../controllers/comment.controller.js";
 
@@ -47,7 +47,7 @@ router.get("/user", authMiddleware, userInfo);
 
 // Post routes
 router.post("/zip/add", authMiddleware, addPost)
-router.get("/zip",authMiddleware,allPosts)
+router.get("/zip", authMiddleware, allPosts)
 router.delete("/zip/:id", authMiddleware, deletePost)
 router.put("/zip/like/:id", authMiddleware, likePost)
 router.post("/zip/rezip/:id", authMiddleware, repost)

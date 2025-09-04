@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleDeletePost } from "../../redux/serviceSlice.js";
 
 const DeletePost = () => {
-  const {DeletePost:anchorEl, DarkMode } = useSelector(state => state.service);
+  const { DeletePost: anchorEl, DarkMode } = useSelector(state => state.service);
 
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ const DeletePost = () => {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       disableAutoFocusItem={true}
       PaperProps={{
-        sx:{
+        sx: {
           bgcolor: DarkMode ? "#1e1e1e" : "#fff",
           color: DarkMode ? "#f5f5f5" : "#000"
         }

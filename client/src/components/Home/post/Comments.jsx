@@ -12,7 +12,7 @@ const Comments = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClose = () => { 
+    const handleClose = () => {
         setAnchorEl(null);
     }
 
@@ -104,7 +104,7 @@ const Comments = () => {
                                 backgroundColor: DarkMode ? "#444" : "#eee",
                                 cursor: "pointer"
                             }
-                        }} 
+                        }}
                         onClick={(e) => setAnchorEl(e.currentTarget)}
                     >
                         <IoIosMore size={20} color={DarkMode ? "#f5f5f5" : "#000"} />

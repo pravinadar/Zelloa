@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
   const _700 = useMediaQuery('(min-width:700px)')
-  const { DarkMode } = useSelector(state=>state.service);
-  const textSecondary = DarkMode ? "#bbb":"black"
+  const { DarkMode } = useSelector(state => state.service);
+  const textSecondary = DarkMode ? "#bbb" : "black"
 
   return (
     <div>
@@ -15,9 +15,9 @@ const Home = () => {
         flexDirection={'column'}
         gap={2}
         mb={10}
-        maxWidth={_700? '70%' : '80%'}
+        maxWidth={_700 ? '70%' : '80%'}
         mx={"auto"}
-        sx={{ transition:"color .25s", color: textSecondary }}
+        sx={{ transition: "color .25s", color: textSecondary }}
       >
 
         <Post />

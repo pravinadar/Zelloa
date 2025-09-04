@@ -2,8 +2,8 @@ import { Avatar, AvatarGroup, Badge, Stack, Stepper } from '@mui/material'
 import { useSelector } from 'react-redux'
 
 const PostHeader = ({ isMobile }) => {
-  const { DarkMode } = useSelector(state=>state.service);
-  const lineColor = DarkMode ? "#444" : "gray";
+    const { DarkMode } = useSelector(state => state.service);
+    const lineColor = DarkMode ? "#444" : "gray";
 
     return (
         <>
@@ -36,13 +36,13 @@ const PostHeader = ({ isMobile }) => {
                         </Avatar>
                     }
                 >
-                    <Avatar 
-                        alt="User" 
-                        src="" 
-                        sx={{ 
-                            width: isMobile ? 30 : 40, 
-                            height: isMobile ? 30 : 40 
-                        }} 
+                    <Avatar
+                        alt="User"
+                        src=""
+                        sx={{
+                            width: isMobile ? 30 : 40,
+                            height: isMobile ? 30 : 40
+                        }}
                     />
                 </Badge>
 

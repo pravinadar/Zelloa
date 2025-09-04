@@ -13,13 +13,13 @@ const EditProfile = () => {
 
   const imgRef = useRef()
 
-  const {EditProfileModal, DarkMode} = useSelector(state=>state.service)
+  const { EditProfileModal, DarkMode } = useSelector(state => state.service)
   const bg = DarkMode ? "#1e1e1e" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const dispatch = useDispatch();
 
-  const handleClose = () => { 
+  const handleClose = () => {
     dispatch(openEditProfileModal(false));
   }
 
@@ -37,10 +37,10 @@ const EditProfile = () => {
         fullWidth
         fullScreen={_700 ? false : true}
         PaperProps={{
-          sx:{
-            bgcolor:bg,
-            color:textPrimary,
-            transition:"background-color .25s,color .25s"
+          sx: {
+            bgcolor: bg,
+            color: textPrimary,
+            transition: "background-color .25s,color .25s"
           }
         }}
       >
@@ -119,7 +119,7 @@ const EditProfile = () => {
               value={"fetchUserName"}
               readOnly
               className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
             />
 
           </Stack>
@@ -143,7 +143,7 @@ const EditProfile = () => {
               value={"fetchEmail"}
               readOnly
               className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
             />
 
           </Stack>
@@ -166,7 +166,7 @@ const EditProfile = () => {
               type="text"
               placeholder="Write something about yourself..."
               className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color:textPrimary }}
+              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
               onChange={(e) => setBio(e.target.value)}
             />
 

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 
 const ProfileBar = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
     const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
     const hoverShadow = DarkMode ? "0 0 14px #000" : "1px 6px 20px gray";
     const baseShadow = DarkMode ? "0 0 8px #000" : "-1px 3px 10px gray";
@@ -43,8 +43,8 @@ const ProfileBar = () => {
                             User Name Here
                         </Typography>
 
-                        <Typography 
-                            variant="caption" 
+                        <Typography
+                            variant="caption"
                             color={"gray"}
                             fontSize={isMobile ? "0.8rem" : "0.9rem"}
                             lineHeight={1.3}
@@ -52,8 +52,8 @@ const ProfileBar = () => {
                             @userid_here
                         </Typography>
 
-                        <Typography 
-                            variant="caption" 
+                        <Typography
+                            variant="caption"
                             color={"gray"}
                             fontSize={isMobile ? "0.75rem" : "0.85rem"}
                             fontWeight={"bold"}

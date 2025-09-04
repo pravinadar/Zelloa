@@ -21,7 +21,7 @@ const AddPost = () => {
     dispatch(openAddPostModal(false));
   };
 
-  const {AddPostModal, DarkMode} = useSelector(state=>state.service)
+  const { AddPostModal, DarkMode } = useSelector(state => state.service)
   const bg = DarkMode ? "#1e1e1e" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
@@ -39,10 +39,10 @@ const AddPost = () => {
         fullWidth
         fullScreen={_700 ? false : true}
         PaperProps={{
-          sx:{
-            bgcolor:bg,
-            color:textPrimary,
-            transition:"background-color .25s,color .25s"
+          sx: {
+            bgcolor: bg,
+            color: textPrimary,
+            transition: "background-color .25s,color .25s"
           }
         }}
       >
@@ -60,7 +60,7 @@ const AddPost = () => {
           <RxCross1
             size={28}
             className="image-icon"
-            onClick={handleClose} 
+            onClick={handleClose}
           />
         </Box>
 

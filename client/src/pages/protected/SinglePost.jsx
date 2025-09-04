@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 const SinglePost = () => {
 
     const [comment, setComment] = useState("")
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
     const fieldBg = DarkMode ? "#1e1e1e" : "#fff";
     const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
@@ -47,7 +47,7 @@ const SinglePost = () => {
                         bgcolor: fieldBg,
                         color: textPrimary
                     }}
-                    InputProps={{ sx:{ color:textPrimary } }}
+                    InputProps={{ sx: { color: textPrimary } }}
                     onChange={(e) => setComment(e.target.value)}
                 />
 

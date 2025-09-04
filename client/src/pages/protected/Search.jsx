@@ -4,13 +4,13 @@ import ProfileBar from "../../components/search/ProfileBar"
 import SearchInput from "../../components/search/SearchInput"
 
 const Search = () => {
-  const { DarkMode } = useSelector(state=>state.service);
+  const { DarkMode } = useSelector(state => state.service);
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
   return (
     <>
       <Stack
         mx={"10px"}
-        sx={{ color:textPrimary }}
+        sx={{ color: textPrimary }}
       >
         <SearchInput />
       </Stack>

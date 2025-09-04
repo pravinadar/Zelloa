@@ -25,19 +25,19 @@ const ProtectedLayout = () => {
         transition: "background-color .25s,color .25s"
       }}
     >
-        {/* Protected content goes here */}
-        <Header />
+      {/* Protected content goes here */}
+      <Header />
 
-        <MainMenu />
+      <MainMenu />
 
-        <AddPost />
+      <AddPost />
 
-        <EditProfile /> 
+      <EditProfile />
 
-        <DeletePost />
+      <DeletePost />
 
-        {/* Outlet renders the child routes */}
-        <Outlet />
+      {/* Outlet renders the child routes */}
+      <Outlet />
     </Stack>
   )
 }

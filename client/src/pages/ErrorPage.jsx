@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const ErrorPage = () => {
     const navigate = useNavigate()
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
     const bg = DarkMode ? "#121212" : undefined;
 
     const handleGoHome = () => {
@@ -24,7 +24,7 @@ const ErrorPage = () => {
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 color: DarkMode ? "#f5f5f5" : "inherit",
-                transition:"background .25s,color .25s"
+                transition: "background .25s,color .25s"
             }}
         >
             <Stack
@@ -72,7 +72,7 @@ const ErrorPage = () => {
                         textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
                     }}
                 >
-                    The page you're looking for doesn't exist or has been moved. 
+                    The page you're looking for doesn't exist or has been moved.
                     Don't worry, let's get you back on track!
                 </Typography>
 

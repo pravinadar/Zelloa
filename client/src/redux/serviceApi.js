@@ -35,12 +35,12 @@ export const serviceApi = createApi({
                 method: "GET"
             }),
             providesTags: ["Me"],
-            async onQueryStarted(params, {dispatch, queryFulfilled}){
+            async onQueryStarted(params, { dispatch, queryFulfilled }) {
                 try {
-                    const {data} = await queryFulfilled;
-                    if(!data) return;
+                    const { data } = await queryFulfilled;
+                    if (!data) return;
                     console.log("Fetched User Info : ", data);
-                    dispatch(addUserInfo({data}))
+                    dispatch(addUserInfo({ data }))
                 } catch (error) {
                     console.log(error)
                 }
@@ -57,8 +57,8 @@ export const serviceApi = createApi({
     })
 })
 
-export const { 
-    useSignUpMutation, 
+export const {
+    useSignUpMutation,
     useLoginMutation,
     useMyInfoQuery,
     useLogoutMutation

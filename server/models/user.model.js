@@ -1,53 +1,53 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username:{
+    username: {
         type: String,
         required: true,
         trim: true,
     },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
         trim: true,
     },
-    password:{
+    password: {
         type: String,
-        required: true    
+        required: true
     },
-    bio:{
+    bio: {
         type: String,
         default: "",
         trim: true,
     },
-    profilePicture:{
+    profilePicture: {
         type: String,
         default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         trim: true,
     },
-    public_id:{
+    public_id: {
         type: String,
         trim: true,
     },
-    followers:[{
+    followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }],
-    zips:[{
+    zips: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
     }],
-    rezips:[{
+    rezips: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
     }],
-    replies:[{
+    replies: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",
     }],
 
-},{timestamps: true});
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 

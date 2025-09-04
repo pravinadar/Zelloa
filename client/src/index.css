@@ -1,44 +1,44 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    transition: background-color .25s, color .25s;
+  transition: background-color 0.25s, color 0.25s;
 }
 
-.login-link{
-    cursor: pointer;
-    color: #1976d2;
-    text-decoration: underline;
+.login-link {
+  cursor: pointer;
+  color: #1976d2;
+  text-decoration: underline;
 }
 
-.text1{
-    border:none;
-    outline:none;
-    padding: 5px 10px;
-    position: relative;
-    left:-10px;
-    color: gray;
-    font-size: 1rem;
-    margin-bottom: 10px;
+.text1 {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  position: relative;
+  left: -10px;
+  color: gray;
+  font-size: 1rem;
+  margin-bottom: 10px;
 }
 
 .file-input {
-    display: none;
+  display: none;
 }
 
 #url-img {
-    margin: 0 0 10px;
-    width: 150px;
+  margin: 0 0 10px;
+  width: 150px;
 }
 
 .caption-link {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 .link {
-    /* color: black; */
-    text-decoration: none;
+  /* color: black; */
+  text-decoration: none;
 }

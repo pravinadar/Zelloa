@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
-    admin:{
+    admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    post:{
+    post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
     },
-    text:{
+    text: {
         type: String,
         required: true,
         trim: true,
     }
 
-},{timestamps: true});  
+}, { timestamps: true });
 
 const Comment = mongoose.model("Comment", commentSchema);
 

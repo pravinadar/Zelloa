@@ -11,25 +11,25 @@ export const serviceSlice = createSlice({
     DarkMode: false,
     myInfo: null
   },
-  
+
   reducers: {
 
     openAddPostModal: (state, action) => {
       state.AddPostModal = action.payload
     },
-    openEditProfileModal: (state,action)=>{
+    openEditProfileModal: (state, action) => {
       state.EditProfileModal = action.payload
     },
     openMainMenu: (state, action) => {
       state.MainMenu = action.payload
     },
-    toggleDeletePost: (state,action) => {
+    toggleDeletePost: (state, action) => {
       state.DeletePost = action.payload
     },
     toggleDarkMode: (state) => {
       state.DarkMode = !state.DarkMode;
     },
-    addUserInfo: (state, action)=>{
+    addUserInfo: (state, action) => {
       state.myInfo = action.payload
     }
 
@@ -37,7 +37,7 @@ export const serviceSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { 
+export const {
   openAddPostModal,
   openEditProfileModal,
   openMainMenu,

@@ -1,5 +1,6 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Box } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux'
 
 import Home from './pages/protected/Home'
@@ -15,7 +16,7 @@ import ErrorPage from './pages/ErrorPage'
 import { useMyInfoQuery } from './redux/serviceAPI'
 
 function App() {
-  const { DarkMode, myInfo } = useSelector(state=>state.service);
+  const { DarkMode, myInfo } = useSelector(state => state.service);
   const bg = DarkMode ? "#121212" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
   const { data, isError, isLoading } = useMyInfoQuery();
@@ -23,17 +24,16 @@ function App() {
   // If we're loading, show a loading state
   if (isLoading) {
     return (
-      <Box 
-        minHeight={'100vh'} 
-        sx={{ 
-          bgcolor: bg, 
-          color: textPrimary, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center' 
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
-        Loading...
+        <CircularProgress />
       </Box>
     );
   }
@@ -51,10 +51,10 @@ function App() {
 
   return (
     <>
-      <Box minHeight={'100vh'} sx={{ bgcolor:bg, color:textPrimary, transition:"background-color .25s,color .25s" }}>
+      <Box minHeight={'100vh'} sx={{ bgcolor: bg, color: textPrimary, transition: "background-color .25s,color .25s" }}>
         <BrowserRouter>
           <Routes>
-              <Route path="/" element={<ProtectedLayout />} >
+            <Route path="/" element={<ProtectedLayout />} >
               <Route path='' element={<Home />} />
               <Route path='search' element={<Search />} />
               <Route path='post/:id' element={<SinglePost />} />
@@ -65,7 +65,7 @@ function App() {
                 <Route path='rezips/:id' element={<Repost />} />
               </Route>
 
-              </Route>
+            </Route>
 
             <Route path='*' element={<ErrorPage />} />
           </Routes>

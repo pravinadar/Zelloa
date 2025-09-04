@@ -10,7 +10,7 @@ import { openAddPostModal } from "../../redux/serviceSlice.js";
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
     const iconColor = DarkMode ? "#f5f5f5" : "black";
 
     const handleAddPost = () => {

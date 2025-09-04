@@ -7,6 +7,6 @@ export default configureStore({
     service: serviceReducer,
     [serviceApi.reducerPath]: serviceApi.reducer,
   },
-  middleware:(getDefaultMiddleware) => 
-    getDefaultMiddleware({serializableCheck: false}).concat(serviceApi.middleware)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(serviceApi.middleware)
 })

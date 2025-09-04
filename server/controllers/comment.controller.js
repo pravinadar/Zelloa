@@ -8,20 +8,20 @@ export const addComment = async (req, res) => {
         const { postId } = req.params;
         const { text } = req.body;
 
-        if(!postId){
+        if (!postId) {
             return res.status(400).json({
                 message: "Post ID is required"
             });
         }
 
-        if(!text || text.trim() === ""){
+        if (!text || text.trim() === "") {
             return res.status(400).json({
                 message: "Comment text is required"
             });
         }
 
         const postExists = await Post.findById(postId);
-        if(!postExists){
+        if (!postExists) {
             return res.status(404).json({
                 message: "Post not found"
             });
@@ -58,35 +58,35 @@ export const addComment = async (req, res) => {
         res.status(500).json({
             message: "Error adding comment",
             error: error.message
-        });   
+        });
     }
 }
 
 export const deleteComments = async (req, res) => {
     try {
-        const {postId, commentId} = req.params;
-        if(!postId || !commentId){
+        const { postId, commentId } = req.params;
+        if (!postId || !commentId) {
             return res.status(400).json({
                 message: "Post ID and Comment ID are required"
             });
         }
 
         const postExists = await Post.findById(postId);
-        if(!postExists){
+        if (!postExists) {
             return res.status(404).json({
                 message: "Post not found"
             });
         }
 
         const commentExists = await Comment.findById(commentId);
-        if(!commentExists){
+        if (!commentExists) {
             return res.status(404).json({
                 message: "Comment not found"
             });
         }
 
-        if(postExists.comments.includes(commentExists._id)){
-            if(commentExists.admin._id.toString() !== req.user.id.toString()){
+        if (postExists.comments.includes(commentExists._id)) {
+            if (commentExists.admin._id.toString() !== req.user.id.toString()) {
                 return res.status(403).json({
                     message: "You are not authorized to delete this comment"
                 });
@@ -111,7 +111,7 @@ export const deleteComments = async (req, res) => {
             message: "Comment deleted successfully"
         });
 
-        } catch (error) {
+    } catch (error) {
         res.status(500).json({
             message: "Error deleting comment",
             error: error.message

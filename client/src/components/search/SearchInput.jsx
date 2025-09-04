@@ -3,11 +3,11 @@ import { FaSearch } from "react-icons/fa"
 import { useSelector } from "react-redux"
 
 const SearchInput = () => {
-  const isMobile = useMediaQuery('(max-width:600px)');
-  const { DarkMode } = useSelector(state=>state.service);
-  const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
-  const shadow = DarkMode ? "0 0 8px #000" : "-1px 3px 10px gray";
-  const hoverShadow = DarkMode ? "0 0 14px #000" : "1px 6px 20px gray";
+    const isMobile = useMediaQuery('(max-width:600px)');
+    const { DarkMode } = useSelector(state => state.service);
+    const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
+    const shadow = DarkMode ? "0 0 8px #000" : "-1px 3px 10px gray";
+    const hoverShadow = DarkMode ? "0 0 14px #000" : "1px 6px 20px gray";
 
     return (
         <>
@@ -16,7 +16,7 @@ const SearchInput = () => {
                 maxWidth: "750px",
                 boxShadow: shadow,
                 bgcolor: cardBg,
-                color: DarkMode ? "#f5f5f5":"black",
+                color: DarkMode ? "#f5f5f5" : "black",
                 borderRadius: isMobile ? "10px" : "15px",
                 px: isMobile ? 1 : 2,
                 py: isMobile ? 0.5 : 1,
@@ -27,7 +27,7 @@ const SearchInput = () => {
                 },
                 transition: "all 0.3s ease",
                 '& .MuiOutlinedInput-root': {
-                    color: DarkMode ? "#f5f5f5":"black",
+                    color: DarkMode ? "#f5f5f5" : "black",
                     fontSize: isMobile ? "0.9rem" : "1rem",
                     '& fieldset': {
                         border: "none",

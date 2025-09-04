@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import Post from "../../../components/Home/Post"
 
 const Zips = () => {
-  const { DarkMode } = useSelector(state=>state.service);
+  const { DarkMode } = useSelector(state => state.service);
   return (
     <>
       <Stack
@@ -17,11 +17,11 @@ const Zips = () => {
         sx={{ color: DarkMode ? "#f5f5f5" : "#000" }}
       >
 
-        <Post/>
-        <Post/>
-        <Post/>
-        <Post/>
-        
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+
       </Stack>
     </>
   )

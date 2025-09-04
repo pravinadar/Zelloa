@@ -286,7 +286,7 @@ export const repost = async (req, res) => {
         // convert the string representation of the ObjectId into a proper MongoDB ObjectId instance.
         const objectId = new mongoose.Types.ObjectId(id);
 
-        if(req.user.rezips.includes(objectId)){
+        if (req.user.rezips.includes(objectId)) {
             return res.status(400).json({
                 message: "You have already reposted this post"
             });
@@ -294,8 +294,8 @@ export const repost = async (req, res) => {
 
         await User.findByIdAndUpdate(
             req.user.id,
-            { 
-                $push: { rezips: post._id } 
+            {
+                $push: { rezips: post._id }
             },
             { new: true }
         )
@@ -340,7 +340,7 @@ export const singlePost = async (req, res) => {
                 select: "-password"
             }
         });
-        
+
         if (!post) {
             return res.status(404).json({
                 message: "Post not found"

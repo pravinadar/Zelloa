@@ -8,7 +8,7 @@ import User from "../models/user.model.js";
 // Cookie configuration for consistent settings across login/signup/logout
 const getCookieConfig = () => {
     const isDevelopment = process.env.NODE_ENV !== 'production';
-    
+
     return {
         httpOnly: true,
         sameSite: isDevelopment ? "lax" : "none",
@@ -442,7 +442,7 @@ export const searchUser = async (req, res) => {
         res.status(500).json({
             message: "Internal Server Error",
             error: error.message
-        });   
+        });
     }
 }
 
@@ -456,7 +456,7 @@ export const logoutUser = async (req, res) => {
         // Clear the cookie with EXACT same attributes as when it was set
         const cookieConfig = getCookieConfig();
         res.clearCookie("accessToken", cookieConfig);
-    
+
         res.status(200).json({
             message: "User logged out successfully"
         });
@@ -466,7 +466,7 @@ export const logoutUser = async (req, res) => {
             message: "Internal Server Error",
             error: error.message
         });
-        
+
     }
 }
 
@@ -480,7 +480,7 @@ export const userInfo = async (req, res) => {
         res.status(200).json({
             user: req.user
         })
-    }catch (error) {
+    } catch (error) {
         console.error('Error in userInfo:', error.message);
         return res.status(500).json({
             message: "Internal Server Error",

@@ -7,12 +7,12 @@ const Input = () => {
     const _700 = useMediaQuery('(min-width:700px)')
 
     const dispatch = useDispatch();
-    const { DarkMode } = useSelector(state=>state.service);
+    const { DarkMode } = useSelector(state => state.service);
 
     const cardBg = DarkMode ? "#000000ff" : "#ffffff";
     const textSecondary = DarkMode ? "#bbbbbb" : "gray";
 
-    const handleAddPost=()=>{
+    const handleAddPost = () => {
         dispatch(openAddPostModal(true))
     }
 
@@ -33,7 +33,7 @@ const Input = () => {
                         ":hover": { cursor: "pointer", bgcolor: DarkMode ? "#222" : "grey.100" },
                         bgcolor: cardBg,
                         color: textSecondary,
-                        transition:"background-color .25s,color .25s"
+                        transition: "background-color .25s,color .25s"
                     }}
                 >
                     <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
@@ -42,12 +42,12 @@ const Input = () => {
 
                     </Stack>
                     <Button size="medium" sx={{
-                      bgcolor: DarkMode ? "#333" : "black",
-                      color: "white",
-                      ":hover": {
-                        bgcolor: DarkMode ? "#444" : "gray",
-                        cursor: "pointer"
-                      }
+                        bgcolor: DarkMode ? "#333" : "black",
+                        color: "white",
+                        ":hover": {
+                            bgcolor: DarkMode ? "#444" : "gray",
+                            cursor: "pointer"
+                        }
                     }}>
                         POST
                     </Button>

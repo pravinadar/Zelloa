@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 app.use("/api", router);
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("API is running....");
 })
 

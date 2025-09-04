@@ -12,7 +12,7 @@ const authMiddleware = async (req, res, next) => {
     try {
         const accessToken = req.cookies.accessToken;
 
-        if(!accessToken) {
+        if (!accessToken) {
             return res.status(401).json({
                 message: "Authentication token is required"
             });
@@ -27,10 +27,10 @@ const authMiddleware = async (req, res, next) => {
         }
 
         const user = await User.findById(decoded.id)
-        .populate("followers")
-        .populate("replies")
-        .populate("zips")
-        .populate("rezips");
+            .populate("followers")
+            .populate("replies")
+            .populate("zips")
+            .populate("rezips");
 
         if (!user) {
             return res.status(404).json({
@@ -41,7 +41,7 @@ const authMiddleware = async (req, res, next) => {
         req.user = user; // Attach the user object to the request
 
         next(); // Proceed to the next middleware or route handler
-        
+
     } catch (error) {
         console.error('Error in authMiddleware:', error.message);
         return res.status(500).json({

@@ -4,11 +4,11 @@ import { Link, Outlet } from "react-router-dom"
 import { openEditProfileModal } from "../../../redux/serviceSlice.js";
 
 const ProfileLayout = () => {
-  const dispatch = useDispatch();
-  const { DarkMode } = useSelector(state=>state.service);
-  const logoSrc = DarkMode ? "/logo-darkmode2.svg" : "/logo-lightmode2.svg";
-  const borderColor = DarkMode ? "#333" : "gray";
-  const textSecondary = DarkMode ? "#bbb":"gray";
+    const dispatch = useDispatch();
+    const { DarkMode } = useSelector(state => state.service);
+    const logoSrc = DarkMode ? "/logo-darkmode2.svg" : "/logo-lightmode2.svg";
+    const borderColor = DarkMode ? "#333" : "gray";
+    const textSecondary = DarkMode ? "#bbb" : "gray";
 
     const handleEditProfile = () => {
         dispatch(openEditProfileModal(true));
@@ -110,7 +110,7 @@ const ProfileLayout = () => {
             <Button
                 size="large"
                 sx={{
-                    color: DarkMode ? "#f5f5f5" :"black",
+                    color: DarkMode ? "#f5f5f5" : "black",
                     width: "90%",
                     maxWidth: "800px",
                     mx: "auto",
@@ -138,7 +138,7 @@ const ProfileLayout = () => {
                 fontSize={"1.2rem"}
                 width={"90%"}
                 maxWidth={"800px"}
-                sx={{ borderBottom:`2px solid ${borderColor}` }}
+                sx={{ borderBottom: `2px solid ${borderColor}` }}
             >
 
                 <Link to={'/profile/zips/1'} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>  {/* to be edited */}
