@@ -16,6 +16,31 @@ const Post = ({post}) => {
         dispatch(addPostId(post._id));
     }
 
+    const formatTimeAgo = (dateString) => {
+        if (!dateString) return "";
+        
+        const now = new Date();
+        const postTime = new Date(dateString);
+        const diffInSeconds = Math.floor((now - postTime) / 1000);
+        
+        const intervals = [
+            { label: 'y', seconds: 31536000 }, 
+            { label: 'w', seconds: 604800 },   
+            { label: 'd', seconds: 86400 },   
+            { label: 'h', seconds: 3600 },     
+            { label: 'm', seconds: 60 },       
+        ];
+        
+        for (const interval of intervals) {
+            const count = Math.floor(diffInSeconds / interval.seconds);
+            if (count >= 1) {
+                return isMobile ? `${count}${interval.label}` : `${count} ${interval.label === 'y' ? 'year' : interval.label === 'w' ? 'week' : interval.label === 'd' ? 'day' : interval.label === 'h' ? 'hour' : 'minute'}${count > 1 ? 's' : ''} ago`;
+            }
+        }
+        
+        return isMobile ? "now" : "just now";
+    }
+
     const [isAdmin,setIsAdmin] = useState();
 
     const checkIsAdmin = () =>{
@@ -71,7 +96,7 @@ const Post = ({post}) => {
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         textAlign="right"
                     >
-                        {isMobile ? "2h" : "2 hours ago"}
+                        {formatTimeAgo(post?.createdAt)}
                     </Typography>
 
                     { isAdmin ? (

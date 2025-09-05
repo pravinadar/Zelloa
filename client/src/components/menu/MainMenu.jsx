@@ -22,13 +22,14 @@ const MainMenu = () => {
     const handleLogout = async () => {
         handleClose();
         await logoutUser().unwrap();
+        window.location.reload();
     }
 
     useEffect(() => {
         if (logoutUserData.isSuccess) {
             dispatch(addUserInfo(null))
             console.log("User logged out successfully");
-            window.location.reload(); // redirect to register page
+            // window.location.reload(); // redirect to register page
         }
 
     }, [logoutUserData.isSuccess])

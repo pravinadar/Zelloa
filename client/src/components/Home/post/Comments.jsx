@@ -1,22 +1,78 @@
 import { Avatar, Stack, Typography, IconButton, Box, Menu, MenuItem } from "@mui/material"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosMore } from "react-icons/io"
 import { useSelector } from "react-redux"
+import { useDeleteCommentMutation, useSinglePostQuery } from "../../../redux/serviceAPI";
 
-const Comments = () => {
-    const { DarkMode } = useSelector(state => state.service);
+const Comments = ({ comment, postId }) => {
+    const { DarkMode, myInfo } = useSelector(state => state.service);
     const hoverBg = DarkMode ? "#1f1f1f" : "#f3f3f3ff";
     const border = DarkMode ? "#333" : "#e0e0e0";
     const textSecondary = DarkMode ? "#bbb" : "#555";
     const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
     const [anchorEl, setAnchorEl] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [deleteComment, deleteCommentData] = useDeleteCommentMutation();
+    const { refetch } = useSinglePostQuery(postId);
+
+    const formatTimeAgo = (dateString) => {
+        if (!dateString) return "";
+
+        const now = new Date();
+        const commentTime = new Date(dateString);
+        const diffInSeconds = Math.floor((now - commentTime) / 1000);
+
+        const intervals = [
+            { label: 'y', seconds: 31536000 },
+            { label: 'w', seconds: 604800 },
+            { label: 'd', seconds: 86400 },
+            { label: 'h', seconds: 3600 },
+            { label: 'm', seconds: 60 },
+        ];
+
+        for (const interval of intervals) {
+            const count = Math.floor(diffInSeconds / interval.seconds);
+            if (count >= 1) {
+                return `${count}${interval.label}`;
+            }
+        }
+
+        return "now";
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
     }
 
-    const handleDeleteComment = () => { }
+    const handleDeleteComment = async () => {
+        await deleteComment({ postId, commentId: comment._id });
+        handleClose();
+        refetch();
+    }
+
+    const checkIsAdmin = () => {
+        if (comment && myInfo) {
+            if (comment.admin._id === myInfo._id) {
+                setIsAdmin(true);
+                return;
+            }
+        }
+        setIsAdmin(false);
+    }
+
+    useEffect(() => {
+        checkIsAdmin();
+    }, [comment]);
+
+    useEffect(() => {
+        if (deleteCommentData.isSuccess) {
+            console.log(deleteCommentData.data);
+        }
+        if (deleteCommentData.isError) {
+            console.log(deleteCommentData.error.data);
+        }
+    }, [deleteCommentData.isSuccess, deleteCommentData.isError]);
 
     return (
         <>
@@ -48,7 +104,7 @@ const Comments = () => {
                     >
 
                         <Avatar
-                            src=""
+                            src={comment?.admin?.profilePicture}
                             alt="User Avatar"
                             sx={{
                                 width: 40,
@@ -70,7 +126,7 @@ const Comments = () => {
                                 color={textPrimary}
                                 sx={{ lineHeight: 1.2 }}
                             >
-                                username
+                                {comment?.admin?.username || "User"}
                             </Typography>
 
                             <Typography
@@ -83,32 +139,38 @@ const Comments = () => {
                                     mt: 0.5
                                 }}
                             >
-                                This is a sample comment that demonstrates how the comment will look in the actual application.
+                                {comment?.text || ""}
                             </Typography>
 
-                            <Typography
-                                variant="caption"
-                                color={DarkMode ? "#777" : "text.disabled"}
-                                fontSize={"0.75rem"}
-                                sx={{ mt: 1 }}
-                            >
-                                time here
-                            </Typography>
                         </Stack>
                     </Stack>
 
-                    <IconButton
-                        size="small"
-                        sx={{
-                            "&:hover": {
-                                backgroundColor: DarkMode ? "#444" : "#eee",
-                                cursor: "pointer"
-                            }
-                        }}
-                        onClick={(e) => setAnchorEl(e.currentTarget)}
-                    >
-                        <IoIosMore size={20} color={DarkMode ? "#f5f5f5" : "#000"} />
-                    </IconButton>
+                    <Stack flexDirection={"row"} alignContent={"center"} gap={1} >
+                        <Typography
+                            variant="caption"
+                            color={DarkMode ? "#777" : "text.disabled"}
+                            fontSize={"0.75rem"}
+                            sx={{ mt: 0.7 }}
+                        >
+                            {formatTimeAgo(comment?.createdAt)}
+                        </Typography>
+                        {
+                            isAdmin ? (
+                                <IconButton
+                                    size="small"
+                                    sx={{
+                                        "&:hover": {
+                                            backgroundColor: DarkMode ? "#444" : "#eee",
+                                            cursor: "pointer"
+                                        }
+                                    }}
+                                    onClick={(e) => setAnchorEl(e.currentTarget)}
+                                >
+                                    <IoIosMore size={20} color={DarkMode ? "#f5f5f5" : "#000"} />
+                                </IconButton>
+                            ) : null
+                        }
+                    </Stack>
                 </Stack>
             </Box>
 

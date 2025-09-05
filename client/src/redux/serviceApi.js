@@ -180,10 +180,10 @@ export const serviceApi = createApi({
         }),
 
         addComment: builder.mutation({
-            query: ({ id, ...data }) => ({
+            query: ({ id, text }) => ({
                 url: `comment/${id}`,
                 method: "POST",
-                body: { data }
+                body: { text }
             }),
             invalidatesTags: ["User", "Post"],
         }),

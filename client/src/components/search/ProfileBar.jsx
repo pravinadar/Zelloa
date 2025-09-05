@@ -1,7 +1,8 @@
 import { Avatar, Button, Stack, Typography, useMediaQuery } from "@mui/material"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 
-const ProfileBar = () => {
+const ProfileBar = ({ user }) => {
     const isMobile = useMediaQuery('(max-width:600px)');
     const { DarkMode } = useSelector(state => state.service);
     const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
@@ -32,35 +33,37 @@ const ProfileBar = () => {
                 }}
             >
                 <Stack flexDirection={"row"} gap={isMobile ? 1 : 1.5} alignItems={"center"}>
-                    <Avatar src="" alt="" sx={{ width: isMobile ? 40 : 50, height: isMobile ? 40 : 50 }} />
-                    <Stack flexDirection={"column"} gap={0} justifyContent={"center"}>
-                        <Typography
-                            variant="h6"
-                            fontWeight={"bold"}
-                            fontSize={isMobile ? "0.95rem" : "1.1rem"}
-                            lineHeight={1}
-                        >
-                            User Name Here
-                        </Typography>
+                    <Avatar src={user?.profilePicture} alt="profile picture" sx={{ width: isMobile ? 40 : 50, height: isMobile ? 40 : 50 }} />
+                    <Stack flexDirection={"column"} gap={1} justifyContent={"center"}>
+                        <Link to={`/profile/zips/${user?._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                            <Typography
+                                variant="h6"
+                                fontWeight={"bold"}
+                                fontSize={isMobile ? "0.95rem" : "1.1rem"}
+                                lineHeight={1}
+                            >
+                                @{user?.username || "User"}
+                            </Typography>
 
-                        <Typography
+                            {/* <Typography
                             variant="caption"
                             color={"gray"}
                             fontSize={isMobile ? "0.8rem" : "0.9rem"}
                             lineHeight={1.3}
-                        >
+                            >
                             @userid_here
-                        </Typography>
+                        </Typography> */}
 
-                        <Typography
-                            variant="caption"
-                            color={"gray"}
-                            fontSize={isMobile ? "0.75rem" : "0.85rem"}
-                            fontWeight={"bold"}
-                            lineHeight={1}
-                        >
-                            followers here
-                        </Typography>
+                            <Typography
+                                variant="caption"
+                                color={"gray"}
+                                fontSize={isMobile ? "0.75rem" : "0.85rem"}
+                                fontWeight={"bold"}
+                                lineHeight={1}
+                            >
+                                {user?.followers?.length || 0} {user?.followers?.length === 1 ? "Follower" : "Followers"}
+                            </Typography>
+                        </Link>
                     </Stack>
                 </Stack>
 
