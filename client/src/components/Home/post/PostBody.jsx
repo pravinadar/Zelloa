@@ -1,13 +1,52 @@
 import { Stack, Typography, Box } from '@mui/material'
-import { FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa'
+import { FaHeart, FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa'
 import { IoSend } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useLikePostMutation, useRePostMutation } from '../../../redux/serviceAPI'
+import { useEffect, useState } from 'react'
 
-const PostBody = ({ isMobile }) => {
-    const { DarkMode } = useSelector(state => state.service);
+const PostBody = ({ isMobile, post }) => {
+    const { DarkMode, myInfo } = useSelector(state => state.service);
     const iconColor = DarkMode ? "#bbb" : "#555";
     const captionColor = DarkMode ? "#e0e0e0" : "#000";
+
+    const [likePost] = useLikePostMutation();
+    const [repost, repostData] = useRePostMutation();
+
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleLikePost = async () => {
+        await likePost(post?._id).unwrap();
+
+    }
+
+    const checkIsLiked = () => {
+        const isUserLiked = post?.likes?.some(user => user._id === myInfo?._id);
+
+        if (isUserLiked) {
+            setIsLiked(true);
+            return;
+        }
+        setIsLiked(false);
+    }
+
+    const handleRePost = async () => {
+        await repost(post?._id).unwrap();
+    }
+
+    useEffect(() => {
+        checkIsLiked();
+    }, [post]);
+
+    useEffect(() => {
+        if (repostData.isSuccess) {
+            console.log("Post Reposted Successfully");
+        }
+        if (repostData.isError) {
+            console.log(repostData.error.data);
+        }
+    }, [repostData.isSuccess, repostData.isError]);
 
     return (
         <>
@@ -31,16 +70,16 @@ const PostBody = ({ isMobile }) => {
                             fontWeight={"bold"}
                             sx={{ lineHeight: 1.2 }}
                         >
-                            Name
+                            {post?.admin?.username || "User"}
                         </Typography>
 
-                        <Link to={"/post/1"} className="caption-link" style={{ textDecoration: 'none' }}>
+                        <Link to={`/post/${post?._id}`} className="caption-link" style={{ textDecoration: 'none' }}>
                             <Typography
                                 variant="h5"
                                 fontSize={{ xs: "0.95rem", sm: "1.2rem" }}
                                 sx={{ lineHeight: 1.3, color: captionColor }}
                             >
-                                Caption
+                                {post?.text || ""}
                             </Typography>
                         </Link>
                     </Stack>
@@ -52,17 +91,22 @@ const PostBody = ({ isMobile }) => {
                             borderRadius: 1,
                         }}
                     >
-                        <img
-                            src="https://placehold.co/600x400.png"
-                            alt="Post"
-                            loading='lazy'
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                                display: 'block'
-                            }}
-                        />
+                        {
+                            post?.media ? (
+                                <img
+                                    src={post?.media || null}
+                                    alt="Post Media"
+                                    loading='lazy'
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        display: 'block'
+                                    }}
+                                />
+                            ) : null
+                        }
+
                     </Box>
                 </Stack>
 
@@ -82,9 +126,24 @@ const PostBody = ({ isMobile }) => {
                             }
                         }}
                     >
-                        <FaRegHeart size={isMobile ? 18 : 24} />
-                        <FaRegComment size={isMobile ? 18 : 24} />
-                        <FaRetweet size={isMobile ? 18 : 24} />
+                        {
+                            isLiked ? (
+                                <FaHeart size={isMobile ? 18 : 24}
+                                    onClick={handleLikePost} />
+                            ) : (
+                                <FaRegHeart size={isMobile ? 18 : 24}
+                                    onClick={handleLikePost} />
+                            )
+                        }
+
+                        <Link to={`/post/${post?._id}#comments`}>
+                            <FaRegComment size={isMobile ? 18 : 24} />
+                        </Link>
+
+                        <FaRetweet size={isMobile ? 18 : 24}
+                            onClick={handleRePost} 
+                        />
+
                         <IoSend size={isMobile ? 18 : 24} />
                     </Stack>
                 </Stack>
@@ -100,7 +159,7 @@ const PostBody = ({ isMobile }) => {
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >
-                        12 Likes
+                        {post?.likes?.length || 0} {post?.likes?.length === 1 ? "like" : "likes"}
                     </Typography>
 
                     <Typography
@@ -109,7 +168,7 @@ const PostBody = ({ isMobile }) => {
                         fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
                         fontWeight={500}
                     >
-                        5 Comments
+                        {post?.comments?.length || 0} {post?.comments?.length === 1 ? "comment" : "comments"}
                     </Typography>
                 </Stack>
 

@@ -9,6 +9,8 @@ const Input = () => {
     const dispatch = useDispatch();
     const { DarkMode } = useSelector(state => state.service);
 
+    const {myInfo} = useSelector(state => state.service);
+
     const cardBg = DarkMode ? "#000000ff" : "#ffffff";
     const textSecondary = DarkMode ? "#bbbbbb" : "gray";
 
@@ -37,7 +39,7 @@ const Input = () => {
                     }}
                 >
                     <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
-                        <Avatar />
+                        <Avatar src={myInfo?.profilePicture} alt="profile picture" />
                         <Typography color={textSecondary}>Drop a zip...</Typography>
 
                     </Stack>

@@ -3,17 +3,32 @@ import { MdOutlineMoreHoriz } from "react-icons/md";
 import PostHeader from './post/PostHeader';
 import PostBody from './post/PostBody';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleDeletePost } from '../../redux/serviceSlice';
+import { addPostId, toggleDeletePost } from '../../redux/serviceSlice';
+import { useEffect, useState } from 'react';
 
-const Post = () => {
+const Post = ({post}) => {
     const isMobile = useMediaQuery('(max-width:700px)')
 
     const dispatch = useDispatch();
-    const { DarkMode } = useSelector(state => state.service);
-
+    const { DarkMode, myInfo } = useSelector(state => state.service);
     const handleToggleDeletePost = (e) => {
         dispatch(toggleDeletePost(e.currentTarget));
+        dispatch(addPostId(post._id));
     }
+
+    const [isAdmin,setIsAdmin] = useState();
+
+    const checkIsAdmin = () =>{
+        if(post?.admin._id === myInfo._id){
+            setIsAdmin(true)
+        }
+    }
+
+    useEffect(()=>{
+        if(post && myInfo){
+            checkIsAdmin();
+        }
+    },[post,myInfo])
 
     const borderColor = DarkMode ? "#333" : "gray";
     const hoverShadow = DarkMode ? "5px 5px 10px rgba(0,0,0,0.6)" : "5px 5px 10px rgba(0,0,0,0.2)";
@@ -40,8 +55,8 @@ const Post = () => {
                     gap={{ xs: 1, sm: 2 }}
                     width="100%"
                 >
-                    <PostHeader isMobile={isMobile} />
-                    <PostBody isMobile={isMobile} />
+                    <PostHeader isMobile={isMobile} post={post} />
+                    <PostBody isMobile={isMobile} post={post} />
                 </Stack>
 
                 <Stack
@@ -59,11 +74,15 @@ const Post = () => {
                         {isMobile ? "2h" : "2 hours ago"}
                     </Typography>
 
-                    <MdOutlineMoreHoriz
+                    { isAdmin ? (
+
+                        <MdOutlineMoreHoriz
                         size={isMobile ? 18 : 24}
                         style={{ flexShrink: 0 }}
                         onClick={handleToggleDeletePost}
-                    />
+                        />
+                    ) : null
+                    }
                 </Stack>
             </Stack>
         </>

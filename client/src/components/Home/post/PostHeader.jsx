@@ -1,7 +1,8 @@
 import { Avatar, AvatarGroup, Badge, Stack, Stepper } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 
-const PostHeader = ({ isMobile }) => {
+const PostHeader = ({ isMobile, post }) => {
     const { DarkMode } = useSelector(state => state.service);
     const lineColor = DarkMode ? "#444" : "gray";
 
@@ -14,37 +15,38 @@ const PostHeader = ({ isMobile }) => {
                 width={{ xs: "45px", sm: "60px" }}
                 minWidth={{ xs: "45px", sm: "60px" }}
             >
-
-                <Badge
-                    overlap="circular"
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    badgeContent={
-                        <Avatar alt="+" src="" sx={{
-                            width: isMobile ? 14 : 20,
-                            height: isMobile ? 14 : 20,
-                            bgcolor: "green",
-                            position: "relative",
-                            right: isMobile ? 2 : 4,
-                            bottom: isMobile ? 2 : 4,
-                            fontSize: isMobile ? "0.6rem" : "0.8rem"
+                <Link to={`/profile/zips/${post?.admin?._id}`}>
+                    <Badge
+                        overlap="circular"
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
                         }}
-                        >
-                            {" "}+{" "}
-                        </Avatar>
-                    }
-                >
-                    <Avatar
-                        alt="User"
-                        src=""
-                        sx={{
-                            width: isMobile ? 30 : 40,
-                            height: isMobile ? 30 : 40
-                        }}
-                    />
-                </Badge>
+                        badgeContent={
+                            <Avatar alt="+" src="" sx={{
+                                width: isMobile ? 14 : 20,
+                                height: isMobile ? 14 : 20,
+                                bgcolor: "green",
+                                position: "relative",
+                                right: isMobile ? 2 : 4,
+                                bottom: isMobile ? 2 : 4,
+                                fontSize: isMobile ? "0.6rem" : "0.8rem"
+                            }}
+                            >
+                                {" "}+{" "}
+                            </Avatar>
+                        }
+                    >
+                        <Avatar
+                            alt={post?.admin?.username || "User"}
+                            src={post?.admin?.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                            sx={{
+                                width: isMobile ? 30 : 40,
+                                height: isMobile ? 30 : 40
+                            }}
+                        />
+                    </Badge>
+                </Link>
 
                 <Stack
                     flexDirection={"column"}
@@ -63,15 +65,22 @@ const PostHeader = ({ isMobile }) => {
                     >
                     </Stepper>
 
-                    <AvatarGroup total={3} sx={{
-                        '& .MuiAvatar-root': {
-                            width: isMobile ? 18 : 24,
-                            height: isMobile ? 18 : 24,
-                            fontSize: isMobile ? 9 : 12,
-                        }
-                    }}>
-                        <Avatar alt="User1" src="" />
-                    </AvatarGroup>
+                    {
+                        post ? post.comments.length > 0 ?
+                            (
+                                <AvatarGroup total={post.comments.length} 
+                                max={3}
+                                sx={{
+                                '& .MuiAvatar-root': {
+                                    width: isMobile ? 18 : 24,
+                                    height: isMobile ? 18 : 24,
+                                    fontSize: isMobile ? 9 : 12,
+                                }
+                            }}>
+                                <Avatar alt={post?.comments[0]?.admin.username || "User"} src={post?.comments[0]?.admin.profilePicture} />
+                            </AvatarGroup>
+                            ) : "" : ""
+                    }
                 </Stack>
 
             </Stack>

@@ -60,7 +60,7 @@ const MainMenu = () => {
                     to={"/profile/zips/1"}
                     style={{ textDecoration: 'none', color: DarkMode ? "#f5f5f5" : "#000" }}
                 >
-                    <MenuItem>
+                    <MenuItem onClick={handleClose}>
                         Profile
                     </MenuItem>
                 </Link>
