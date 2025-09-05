@@ -9,16 +9,16 @@ const MainMenu = () => {
     const [logoutUser, logoutUserData] = useLogoutMutation();
 
     const dispatch = useDispatch();
-
+    
     const handleClose = () => {
         dispatch(openMainMenu(false));
     }
-
+    
     const handleToggleTheme = () => {
         handleClose();
         dispatch(toggleDarkMode())
     }
-
+    
     const handleLogout = async () => {
         handleClose();
         await logoutUser().unwrap();
@@ -31,10 +31,9 @@ const MainMenu = () => {
             console.log("User logged out successfully");
             // window.location.reload(); // redirect to register page
         }
-
     }, [logoutUserData.isSuccess])
-
-    const { MainMenu: anchorEl, DarkMode } = useSelector(state => state.service);
+    
+    const { MainMenu, DarkMode, myInfo } = useSelector(state => state.service);
     const paperSx = {
         bgcolor: DarkMode ? "#1e1e1e" : "#ffffff",
         color: DarkMode ? "#f5f5f5" : "#000",
@@ -44,8 +43,8 @@ const MainMenu = () => {
     return (
         <>
             <Menu
-                anchorEl={anchorEl} // Replace with your anchor element
-                open={Boolean(anchorEl)} // Replace with your open state
+                anchorEl={MainMenu}
+                open={Boolean(MainMenu)}
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -58,7 +57,7 @@ const MainMenu = () => {
                 </MenuItem>
 
                 <Link
-                    to={"/profile/zips/1"}
+                    to={`/profile/zips/${myInfo?._id}`}
                     style={{ textDecoration: 'none', color: DarkMode ? "#f5f5f5" : "#000" }}
                 >
                     <MenuItem onClick={handleClose}>
