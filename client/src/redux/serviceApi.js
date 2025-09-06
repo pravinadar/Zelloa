@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { addSinglePost, addToAllPosts, addUserInfo, deletePost } from "./serviceSlice";
+import { addSinglePost, addToAllPosts, addUser, addUserInfo, deletePost } from "./serviceSlice";
 
 export const serviceApi = createApi({
     reducerPath: "ServiceApi",
@@ -60,15 +60,11 @@ export const serviceApi = createApi({
                 url: `user/${id}`,
                 method: "GET"
             }),
-            providesTags: (result, error, { id }) => [
-                {
-                    type: "User",
-                    id
-                }
-            ],
+            providesTags: ["User"],
             async onQueryStarted(params, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
+                    console.log(data)
                     dispatch(addUser( data ))
                 } catch (error) {
                     console.log(error)

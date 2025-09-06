@@ -352,13 +352,13 @@ export const UpdateProfile = async (req, res) => {
             );
         }
 
-        if (!files.profilePicture) {
-            return res.status(400).json({
-                message: "Media file is required"
-            });
-        }
+        // if (!files.profilePicture) {
+        //     return res.status(400).json({
+        //         message: "Media file is required"
+        //     });
+        // }
 
-        if (files) {
+        if (files.profilePicture) {
             let uploadedImage;
 
             try {

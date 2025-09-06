@@ -1,8 +1,10 @@
 import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Input, Stack, Typography, useMediaQuery } from "@mui/material"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { openEditProfileModal } from "../../redux/serviceSlice.js";
+import { useParams } from "react-router-dom";
+import { useUpdateProfileMutation, useUserDetailsQuery } from "../../redux/serviceAPI.js";
 
 const EditProfile = () => {
 
@@ -13,11 +15,15 @@ const EditProfile = () => {
 
   const imgRef = useRef()
 
-  const { EditProfileModal, DarkMode } = useSelector(state => state.service)
+  const { EditProfileModal, DarkMode, myInfo } = useSelector(state => state.service)
   const bg = DarkMode ? "#1e1e1e" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const dispatch = useDispatch();
+  const params = useParams();
+
+  const [updateProfile, updateProfileData] = useUpdateProfileMutation();
+  const {refetch} = useUserDetailsQuery(params?.id);
 
   const handleClose = () => {
     dispatch(openEditProfileModal(false));
@@ -27,7 +33,30 @@ const EditProfile = () => {
     imgRef.current.click();
   }
 
-  const handleUpdate = () => { }
+  const handleUpdate = async() => {
+    if (!picture && !bio) return;
+    const formData = new FormData();
+    if (picture) {
+      formData.append("profilePicture", picture);
+    }
+    if (bio) {
+      formData.append("bio", bio);
+    }
+    handleClose();
+    await updateProfile(formData);
+  }
+
+  useEffect(() => {
+    if (updateProfileData?.isSuccess) {
+      console.log("Profile Updated Successfully : ", updateProfileData?.data);
+      setPicture();
+      setBio("");
+      refetch();
+    }
+    if (updateProfileData?.isError) {
+      console.log("Error in updating Profile : ", updateProfileData?.error?.data?.message);
+    }
+  },[updateProfileData?.isSuccess, updateProfileData?.isError])
 
   return (
     <>
@@ -71,7 +100,7 @@ const EditProfile = () => {
           >
 
             <Avatar
-              src={picture ? URL.createObjectURL(picture) : ""}
+              src={picture ? URL.createObjectURL(picture) : myInfo?.profilePicture}
               alt="User Avatar"
               sx={{
                 width: 96,
@@ -116,7 +145,7 @@ const EditProfile = () => {
 
             <input
               type="text"
-              value={"fetchUserName"}
+              value={myInfo?.username}
               readOnly
               className="text1"
               style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
@@ -140,7 +169,7 @@ const EditProfile = () => {
 
             <input
               type="text"
-              value={"fetchEmail"}
+              value={myInfo?.email}
               readOnly
               className="text1"
               style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
@@ -164,7 +193,7 @@ const EditProfile = () => {
 
             <input
               type="text"
-              placeholder="Write something about yourself..."
+              placeholder={myInfo?.bio || "Write something about yourself..."}
               className="text1"
               style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
               onChange={(e) => setBio(e.target.value)}
