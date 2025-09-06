@@ -64,66 +64,97 @@ const EditProfile = () => {
         open={EditProfileModal}
         onClose={handleClose}
         fullWidth
+        maxWidth="sm"
         fullScreen={_700 ? false : true}
         PaperProps={{
           sx: {
             bgcolor: bg,
             color: textPrimary,
-            transition: "background-color .25s,color .25s"
+            transition: "background-color .25s,color .25s",
+            borderRadius: _700 ? 3 : 0,
+            minHeight: _700 ? "auto" : "100vh"
           }
         }}
       >
 
         <Box
           position={"absolute"}
-          top={20}
-          right={20}
+          top={16}
+          right={16}
           onClick={handleClose}
           sx={{
-            padding: 1,
-            ":hover": { cursor: "pointer", bgcolor: "grey.200" }
+            padding: 1.5,
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.2s ease",
+            ":hover": { 
+              cursor: "pointer", 
+              bgcolor: DarkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)",
+              transform: "scale(1.1)"
+            }
           }}
         >
 
-          <RxCross2 size={28} />
+          <RxCross2 size={24} />
 
         </Box>
 
-        <DialogTitle textAlign={"center"} mb={5}>
+        <DialogTitle 
+          textAlign={"center"} 
+          sx={{ 
+            pb: 1, 
+            pt: 3,
+            fontSize: "1.5rem",
+            fontWeight: "600"
+          }}
+        >
           Edit Profile
         </DialogTitle>
 
-        <DialogContent>
+        <DialogContent sx={{ px: 3, pb: 3 }}>
           <Stack
             flexDirection={"column"}
-            gap={1}
+            gap={2}
+            alignItems={"center"}
+            mb={3}
           >
 
             <Avatar
               src={picture ? URL.createObjectURL(picture) : myInfo?.profilePicture}
               alt="User Avatar"
               sx={{
-                width: 96,
-                height: 96,
-                alignSelf: "center",
+                width: 120,
+                height: 120,
+                border: `3px solid ${DarkMode ? "#333" : "#e0e0e0"}`,
+                boxShadow: DarkMode 
+                  ? "0 4px 20px rgba(255,255,255,0.1)" 
+                  : "0 4px 20px rgba(0,0,0,0.15)"
               }}
             />
 
             <Button
-              size="large"
+              variant="outlined"
+              size="medium"
               sx={{
-                border: "2px solid gray",
-                borderRadius: "8px",
-                width: 96,
-                height: 40,
-                alignSelf: "center",
-                my: 2,
+                borderColor: DarkMode ? "#555" : "#ddd",
+                color: textPrimary,
+                borderRadius: "20px",
+                px: 3,
+                py: 1,
+                mt: 1,
+                textTransform: "none",
+                fontWeight: "500",
+                transition: "all 0.2s ease",
                 ":hover": {
-                  cursor: "pointer",
+                  borderColor: DarkMode ? "#777" : "#bbb",
+                  bgcolor: DarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.02)",
+                  transform: "translateY(-1px)"
                 }
               }}
               onClick={handlePhoto}>
-              Change
+              Change Photo
             </Button>
 
             <input
@@ -132,94 +163,140 @@ const EditProfile = () => {
               accept="image/*"
               ref={imgRef}
               onChange={(e) => setPicture(e.target.files[0])}
-            />
-
-            <Typography
-              variant="subtitle1"
-              fontWeight={"bold"}
-              fontSize={"1.2rem"}
-              my={2}
-            >
-              Username
-            </Typography>
-
-            <input
-              type="text"
-              value={myInfo?.username}
-              readOnly
-              className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
+              style={{ display: "none" }}
             />
 
           </Stack>
 
-          <Stack
-            flexDirection={"column"}
-            gap={1}
-          >
+          <Stack spacing={3} mt={2}>
+            <Box>
+              <Typography
+                variant="body1"
+                fontWeight={"600"}
+                fontSize={"0.95rem"}
+                mb={1.5}
+                color={DarkMode ? "#ccc" : "#555"}
+              >
+                Username
+              </Typography>
 
-            <Typography
-              variant="subtitle1"
-              fontWeight={"bold"}
-              fontSize={"1.2rem"}
-              my={2}
-            >
-              email
-            </Typography>
+              <input
+                type="text"
+                value={myInfo?.username}
+                readOnly
+                className="text1"
+                style={{ 
+                  background: DarkMode ? "#2a2a2a" : "#f8f9fa", 
+                  color: textPrimary,
+                  border: `1px solid ${DarkMode ? "#404040" : "#e0e0e0"}`,
+                  borderRadius: "8px",
+                  padding: "12px 16px",
+                  width: "100%",
+                  fontSize: "14px",
+                  outline: "none",
+                  opacity: 0.7,
+                  boxSizing: "border-box"
+                }}
+              />
+            </Box>
 
-            <input
-              type="text"
-              value={myInfo?.email}
-              readOnly
-              className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
-            />
+            <Box>
+              <Typography
+                variant="body1"
+                fontWeight={"600"}
+                fontSize={"0.95rem"}
+                mb={1.5}
+                color={DarkMode ? "#ccc" : "#555"}
+              >
+                Email
+              </Typography>
 
-          </Stack>
+              <input
+                type="text"
+                value={myInfo?.email}
+                readOnly
+                className="text1"
+                style={{ 
+                  background: DarkMode ? "#2a2a2a" : "#f8f9fa", 
+                  color: textPrimary,
+                  border: `1px solid ${DarkMode ? "#404040" : "#e0e0e0"}`,
+                  borderRadius: "8px",
+                  padding: "12px 16px",
+                  width: "100%",
+                  fontSize: "14px",
+                  outline: "none",
+                  opacity: 0.7,
+                  boxSizing: "border-box"
+                }}
+              />
+            </Box>
 
-          <Stack
-            flexDirection={"column"}
-            gap={1}
-          >
+            <Box>
+              <Typography
+                variant="body1"
+                fontWeight={"600"}
+                fontSize={"0.95rem"}
+                mb={1.5}
+                color={DarkMode ? "#ccc" : "#555"}
+              >
+                Bio
+              </Typography>
 
-            <Typography
-              variant="subtitle1"
-              fontWeight={"bold"}
-              fontSize={"1.2rem"}
-              my={2}
-            >
-              Bio
-            </Typography>
-
-            <input
-              type="text"
-              placeholder={myInfo?.bio || "Write something about yourself..."}
-              className="text1"
-              style={{ background: DarkMode ? "#2a2a2a" : "#fff", color: textPrimary }}
-              onChange={(e) => setBio(e.target.value)}
-            />
+              <input
+                type="text"
+                placeholder={myInfo?.bio || "Write something about yourself..."}
+                className="text1"
+                style={{ 
+                  background: DarkMode ? "#2a2a2a" : "#fff", 
+                  color: textPrimary,
+                  border: `1px solid ${DarkMode ? "#404040" : "#e0e0e0"}`,
+                  borderRadius: "8px",
+                  padding: "12px 16px",
+                  width: "100%",
+                  fontSize: "14px",
+                  outline: "none",
+                  transition: "border-color 0.2s ease",
+                  boxSizing: "border-box"
+                }}
+                onChange={(e) => setBio(e.target.value)}
+                onFocus={(e) => e.target.style.borderColor = DarkMode ? "#666" : "#1976d2"}
+                onBlur={(e) => e.target.style.borderColor = DarkMode ? "#404040" : "#e0e0e0"}
+              />
+            </Box>
 
           </Stack>
 
           <Button
+            variant="contained"
             size="large"
             sx={{
-              border: "2px solid gray",
-              borderRadius: "8px",
-              bgcolor: DarkMode ? "#333" : "GrayText",
+              borderRadius: "12px",
+              bgcolor: DarkMode ? "#1976d2" : "#1976d2",
               color: "white",
               width: "100%",
-              height: 40,
-              alignSelf: "center",
-              my: 2,
+              height: 48,
+              mt: 4,
+              mb: 2,
+              textTransform: "none",
+              fontSize: "16px",
+              fontWeight: "600",
+              boxShadow: "0 4px 12px rgba(25, 118, 210, 0.3)",
+              transition: "all 0.2s ease",
               ":hover": {
-                cursor: "pointer",
-                bgcolor: DarkMode ? "#444" : "gray",
+                bgcolor: DarkMode ? "#1565c0" : "#1565c0",
+                boxShadow: "0 6px 16px rgba(25, 118, 210, 0.4)",
+                transform: "translateY(-2px)"
+              },
+              ":disabled": {
+                bgcolor: DarkMode ? "#333" : "#ccc",
+                color: DarkMode ? "#666" : "#999",
+                boxShadow: "none"
               }
             }}
             onClick={handleUpdate}
+            disabled={!picture && !bio}
           >
-            Update
+            Update Profile
           </Button>
         </DialogContent>
 
