@@ -431,7 +431,7 @@ export const searchUser = async (req, res) => {
         res.status(200).json({
             message: "Users found",
             users: users.map(user => ({
-                // id: user._id,
+                id: user._id,
                 username: user.username,
                 profilePicture: user.profilePicture
             }))

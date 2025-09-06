@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { addSinglePost, addToAllPosts, addUser, addUserInfo, deletePost } from "./serviceSlice";
+import { addSinglePost, addToAllPosts, addToSearchedUsers, addUser, addUserInfo, deletePost } from "./serviceSlice";
 
 export const serviceApi = createApi({
     reducerPath: "ServiceApi",
@@ -77,6 +77,15 @@ export const serviceApi = createApi({
                 url: `user/search/${username}`,
                 method: "GET"
             }),
+            async onQueryStarted(params, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(addToSearchedUsers(data?.users));
+                    console.log("Searched Users : ", data);
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }),
 
         followUser: builder.mutation({
@@ -213,6 +222,7 @@ export const {
     useLogoutMutation,
     useUserDetailsQuery,
     useSearchUserQuery,
+    useLazySearchUserQuery,
     useAllPostQuery,
     useFollowUserMutation,
     useAddPostMutation,

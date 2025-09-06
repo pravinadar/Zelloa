@@ -1,6 +1,9 @@
 import { InputAdornment, TextField, useMediaQuery } from "@mui/material"
 import { FaSearch } from "react-icons/fa"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useLazySearchUserQuery } from "../../redux/serviceAPI";
+import { useEffect, useState } from "react";
+import { addToSearchedUsers } from "../../redux/serviceSlice";
 
 const SearchInput = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -8,6 +11,30 @@ const SearchInput = () => {
     const cardBg = DarkMode ? "#1e1e1e" : "#ffffff";
     const shadow = DarkMode ? "0 0 8px #000" : "-1px 3px 10px gray";
     const hoverShadow = DarkMode ? "0 0 14px #000" : "1px 6px 20px gray";
+
+    const [searchUser, searchUserData] = useLazySearchUserQuery();
+    const [query, setQuery] = useState("");
+    const dispatch = useDispatch();
+
+    const handleSearch = async (e) => {
+        if (query.trim() === "") return;
+        if(query && e.key === "Enter") {
+            await searchUser(query);
+        }
+    }
+
+    useEffect(() => {
+        if(query.trim() === "") {
+            return;
+        }
+        if (searchUserData.isSuccess) {
+            dispatch(addToSearchedUsers(searchUserData?.data?.users));
+            console.log(searchUserData?.data);
+        }
+        if (searchUserData.isError) {
+            console.log("Error in searching user : ", searchUserData?.error?.data?.message);
+        }
+    }, [searchUserData.isSuccess, searchUserData.isError]);
 
     return (
         <>
@@ -33,7 +60,7 @@ const SearchInput = () => {
                         border: "none",
                     }
                 }
-            }}
+             }}
                 placeholder="Search..."
                 slotProps={{
                     input: {
@@ -43,7 +70,10 @@ const SearchInput = () => {
                             </InputAdornment>
                         ),
                     },
-                }} />
+                }}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyUp={handleSearch}
+            />
         </>
     )
 }

@@ -35,7 +35,7 @@ const ProfileBar = ({ user }) => {
                 <Stack flexDirection={"row"} gap={isMobile ? 1 : 1.5} alignItems={"center"}>
                     <Avatar src={user?.profilePicture} alt="profile picture" sx={{ width: isMobile ? 40 : 50, height: isMobile ? 40 : 50 }} />
                     <Stack flexDirection={"column"} gap={1} justifyContent={"center"}>
-                        <Link to={`/profile/zips/${user?._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                        <Link to={`/profile/zips/${user?.id}`} style={{ textDecoration: "none", color: "inherit" }}>
                             <Typography
                                 variant="h6"
                                 fontWeight={"bold"}
