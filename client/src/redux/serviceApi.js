@@ -80,7 +80,7 @@ export const serviceApi = createApi({
             async onQueryStarted(params, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
-                    dispatch(addToSearchedUsers(data?.users));
+                    dispatch(addToSearchedUsers(data ? data?.users : []));
                     console.log("Searched Users : ", data);
                 } catch (error) {
                     console.log(error)
@@ -173,7 +173,8 @@ export const serviceApi = createApi({
                     type: "Post",
                     id
                 }
-            ]
+            ],
+            
         }),
 
         rePost: builder.mutation({
@@ -190,7 +191,15 @@ export const serviceApi = createApi({
                 method: "POST",
                 body: { text }
             }),
-            invalidatesTags: ["User", "Post"],
+            invalidatesTags: ["Post"],
+            async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(addSinglePost(data));
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }),
 
         deleteComment: builder.mutation({

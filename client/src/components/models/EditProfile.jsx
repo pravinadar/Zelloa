@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Input, Stack, Typography, useMediaQuery } from "@mui/material"
+import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Stack, Typography, useMediaQuery } from "@mui/material"
 import { useEffect, useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,10 +20,10 @@ const EditProfile = () => {
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   const dispatch = useDispatch();
-  const params = useParams();
+  // const params = useParams();
 
   const [updateProfile, updateProfileData] = useUpdateProfileMutation();
-  const {refetch} = useUserDetailsQuery(params?.id);
+  const {refetch} = useUserDetailsQuery(myInfo?._id);
 
   const handleClose = () => {
     dispatch(openEditProfileModal(false));

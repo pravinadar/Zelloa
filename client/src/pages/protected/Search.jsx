@@ -2,13 +2,16 @@ import { Stack, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
 import ProfileBar from "../../components/search/ProfileBar"
 import SearchInput from "../../components/search/SearchInput"
-import { use, useEffect } from "react"
+import { useEffect } from "react"
 
 const Search = () => {
   const { DarkMode, searchedUsers } = useSelector(state => state.service);
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
 
   useEffect(() => {
+    if (searchedUsers.length === 0){
+      return;
+    }
     console.log("Searched users updated:", searchedUsers);
   }, [searchedUsers]);
 
