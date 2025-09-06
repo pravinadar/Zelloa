@@ -1,18 +1,61 @@
 import { Avatar, Button, Chip, Stack, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useParams } from "react-router-dom"
 import { openEditProfileModal } from "../../../redux/serviceSlice.js";
+import { useFollowUserMutation, useUserDetailsQuery } from "../../../redux/serviceAPI.js";
+import { useEffect, useState } from "react";
 
 const ProfileLayout = () => {
     const dispatch = useDispatch();
-    const { DarkMode } = useSelector(state => state.service);
+    const { DarkMode, myInfo } = useSelector(state => state.service);
     const logoSrc = DarkMode ? "/logo-darkmode2.svg" : "/logo-lightmode2.svg";
     const borderColor = DarkMode ? "#333" : "gray";
     const textSecondary = DarkMode ? "#bbb" : "gray";
 
+    const params = useParams();
+    const { data } = useUserDetailsQuery(params?.id);
+    const [followUser, followUserData] = useFollowUserMutation();
+
+    const [myAccount, setMyAccount] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
+
     const handleEditProfile = () => {
         dispatch(openEditProfileModal(true));
     }
+
+    const checkIsFollowing = () => {
+        if (myInfo && data) {
+            const isFollowingUser = data.user.followers.some(follower => follower._id === myInfo._id);
+            setIsFollowing(isFollowingUser);
+        }
+    }
+
+    const checkIsMyAccount = () => {
+        if (myInfo && data) {
+            setMyAccount(myInfo._id === data.user.id);
+        }
+    }
+
+    const handleFollowUser = async () => {
+        if (data) {
+            await followUser(data.user.id);
+            checkIsFollowing();
+        }
+    }
+
+    useEffect(() => {
+        if (followUserData?.isSuccess) {
+            console.log(followUserData?.data);
+        }
+        if (followUserData?.isError) {
+            console.log(followUserData?.error?.data);
+        }
+    }, [followUserData?.isSuccess, followUserData?.isError])
+
+    useEffect(() => {
+        checkIsMyAccount();
+        checkIsFollowing();
+    }, [data])
 
     return (
         <>
@@ -41,11 +84,11 @@ const ProfileLayout = () => {
                             fontWeight={"bold"}
                             fontSize={"2rem"}
                         >
-                            User Name Here
+                            @{data?.user?.username || "User Name"}
 
                         </Typography>
 
-                        <Stack
+                        {/* <Stack
                             flexDirection={"row"}
                             alignItems={"center"}
                             gap={1}
@@ -67,11 +110,11 @@ const ProfileLayout = () => {
                                 }}
                             />
 
-                        </Stack>
+                        </Stack> */}
 
                     </Stack>
 
-                    <Avatar src="" alt=""
+                    <Avatar src={data?.user?.profilePicture || ""} alt={data?.user?.username || "User Name"}
                         sx={{
                             width: 60,
                             height: 60,
@@ -81,7 +124,7 @@ const ProfileLayout = () => {
                 </Stack>
 
                 <Typography variant="subtitle2">
-                    User Bio Here
+                    {data?.user?.bio || "bio"}
                 </Typography>
 
                 <Stack
@@ -95,7 +138,7 @@ const ProfileLayout = () => {
                         color="gray"
                     >
 
-                        Number of Followers Here
+                        {data?.user?.followers?.length || 0} Followers
 
                     </Typography>
 
@@ -106,6 +149,7 @@ const ProfileLayout = () => {
                 </Stack>
 
             </Stack>
+
 
             <Button
                 size="large"
@@ -123,10 +167,12 @@ const ProfileLayout = () => {
                     },
                     transition: "all 0.3s ease",
                 }}
-                onClick={handleEditProfile}
+                onClick={myAccount ? handleEditProfile : handleFollowUser}
             >
-                Edit Profile
+                {myAccount ? "Edit Profile" : isFollowing ? "Unfollow" : "Follow"}
             </Button>
+
+
 
             <Stack
                 flexDirection={"row"}

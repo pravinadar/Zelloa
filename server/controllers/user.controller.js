@@ -235,10 +235,10 @@ export const getUserDetails = async (req, res) => {
             email: user.email,
             bio: user.bio,
             profilePicture: user.profilePicture,
-            followers: user.followers.length,
-            zips: user.zips.length,
-            rezips: user.rezips.length,
-            replies: user.replies.length
+            followers: user.followers,
+            zips: user.zips,
+            rezips: user.rezips,
+            replies: user.replies
         }
     });
 }
@@ -298,7 +298,7 @@ export const followUser = async (req, res) => {
                 id: userExists._id,
                 username: userExists.username,
                 email: userExists.email,
-                followers: userExists.followers.length
+                followers: userExists.followers
             }
         });
 
