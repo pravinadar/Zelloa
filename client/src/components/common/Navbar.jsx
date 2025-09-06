@@ -30,9 +30,9 @@ const Navbar = () => {
         dispatch(openAddPostModal(true))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         checkArrow();
-    },[window.location.pathname])
+    }, [window.location.pathname])
 
     return (
         <>
@@ -43,11 +43,17 @@ const Navbar = () => {
                 maxWidth={'100%'}
             >
                 {
+
                     showArrow ? (
-                        <FaArrowLeft size={32} color={iconColor} onClick={() => navigate(-1)} />
+                        <Stack
+                        sx={{
+                            ":hover": { cursor: "pointer" }
+                        }}>
+                            <FaArrowLeft size={32} color={iconColor} onClick={() => navigate(-1)} />
+                        </Stack>
                     ) : null
                 }
-                
+
 
                 <Link to={"/"} className="link">
                     <IoHomeSharp

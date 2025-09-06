@@ -165,7 +165,7 @@ export const deletePost = async (req, res) => {
 
         // Delete comments associated with the post
         await Comment.deleteMany({
-            id: {
+            _id: {
                 $in: postExists.comments
             }
         });

@@ -1,9 +1,10 @@
 import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Stack, Typography, useMediaQuery } from "@mui/material"
 import { RxCross1 } from "react-icons/rx";
 import { PiImages } from "react-icons/pi";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openAddPostModal } from "../../redux/serviceSlice";
+import { useAddPostMutation } from "../../redux/serviceAPI";
 
 
 const AddPost = () => {
@@ -21,15 +22,39 @@ const AddPost = () => {
     dispatch(openAddPostModal(false));
   };
 
-  const { AddPostModal, DarkMode } = useSelector(state => state.service)
+  const { AddPostModal, DarkMode, myInfo } = useSelector(state => state.service)
   const bg = DarkMode ? "#1e1e1e" : "#ffffff";
   const textPrimary = DarkMode ? "#f5f5f5" : "#000";
+
+  const [addNewPost, addNewPostData] = useAddPostMutation();
 
   const handleMediaRef = () => {
     mediaRef.current.click();
   };
 
-  const handlePost = () => { }
+  const handlePost = () => {
+    const formData = new FormData();
+    if (!text && !media) return;
+    if (text) {
+      formData.append("text", text);
+    }
+    if (media) {
+      formData.append("media", media);
+    }
+    addNewPost(formData);
+    handleClose();
+  }
+
+  useEffect(() => {
+    if (addNewPostData?.isSuccess) {
+      console.log("Post Added Successfully : ", addNewPostData?.data);
+      setText("");
+      setMedia("");
+    }
+    if (addNewPostData?.isError) {
+      console.log("Error in adding Post : ", addNewPostData?.error?.data);
+    }
+  }, [addNewPostData.isSuccess, addNewPostData?.isError]);
 
   return (
     <>
@@ -78,7 +103,7 @@ const AddPost = () => {
             mb={5}
           >
 
-            <Avatar src="" alt="" />
+            <Avatar src={myInfo?.profilePicture} alt={myInfo?.username} />
 
             <Stack>
 
@@ -87,7 +112,7 @@ const AddPost = () => {
                 fontWeight={"bold"}
                 fontSize={"1rem"}
               >
-                Username
+                {myInfo?.username}
               </Typography>
 
               <textarea
