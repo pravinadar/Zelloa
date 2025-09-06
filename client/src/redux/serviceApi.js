@@ -180,9 +180,18 @@ export const serviceApi = createApi({
         rePost: builder.mutation({
             query: (id) => ({
                 url: `zip/rezip/${id}`,
-                method: "PUT"
+                method: "POST"
             }),
             invalidatesTags: ["User"],
+            async onQueryStarted(id, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    console.log(data);
+                    dispatch(addSinglePost(data));
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }),
 
         addComment: builder.mutation({

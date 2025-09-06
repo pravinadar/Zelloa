@@ -44,7 +44,7 @@ const PostBody = ({ isMobile, post }) => {
             console.log("Post Reposted Successfully");
         }
         if (repostData.isError) {
-            console.log(repostData.error.data);
+            console.log("Error Reposting Post: ", repostData.error.data);
         }
     }, [repostData.isSuccess, repostData.isError]);
 

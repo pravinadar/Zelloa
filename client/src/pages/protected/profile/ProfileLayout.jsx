@@ -187,13 +187,13 @@ const ProfileLayout = () => {
                 sx={{ borderBottom: `2px solid ${borderColor}` }}
             >
 
-                <Link to={'/profile/zips/1'} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>  {/* to be edited */}
+                <Link to={`/profile/zips/${data?.user?.id}`} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>
                     Zips
                 </Link>
-                <Link to={'/profile/replies/1'} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>
+                <Link to={`/profile/replies/${data?.user?.id}`} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>
                     Replies
                 </Link>
-                <Link to={'/profile/rezips/1'} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>
+                <Link to={`/profile/rezips/${data?.user?.id}`} className="link" style={{ color: DarkMode ? "#f5f5f5" : "#000" }}>
                     Rezips
                 </Link>
 

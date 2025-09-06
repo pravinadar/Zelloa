@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import Post from "../../../components/Home/Post"
 
 const Zips = () => {
-  const { DarkMode } = useSelector(state => state.service);
+  const { DarkMode, user } = useSelector(state => state.service);
   return (
     <>
       <Stack
@@ -17,10 +17,19 @@ const Zips = () => {
         sx={{ color: DarkMode ? "#f5f5f5" : "#000" }}
       >
 
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {
+          user?.user?.zips?.length > 0 ? (
+            user?.user?.zips?.map((zip) => (
+              <Post post={zip} key={zip?._id} />
+            ))
+          ) : (
+            <Stack
+              mx={"auto"}
+              sx={{ color: DarkMode ? "#f5f5f5" : "#000" }}
+            >
+              No zips found.
+            </Stack>
+          )}
 
       </Stack>
     </>
